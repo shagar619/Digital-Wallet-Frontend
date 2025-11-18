@@ -8,7 +8,7 @@ export default function Footer() {
 
   return (
     <footer className="bg-background border-t border-border">
-      <div className="mx-auto container space-y-8 px-4 py-16">
+      <div className="w-10/12 mx-auto space-y-8 px-4 py-16">
         <div className="grid grid-cols-1 gap-8 lg:grid-cols-3">
           <div>
             <div className="text-foreground">
@@ -20,7 +20,7 @@ export default function Footer() {
               <h2 className="text-2xl font-bold">
                 {/* Text with gradient animation */}
                 <span className="hidden sm:inline-block bg-gradient-to-r from-primary to-purple-600 bg-clip-text text-transparent">
-                  Digital Wallet
+                  DIGI WALLET
                 </span>
               </h2>
             </div>
@@ -36,44 +36,44 @@ export default function Footer() {
               <p className="font-medium text-foreground">Features</p>
               <ul className="mt-6 space-y-4 text-sm">
                 <li>
-                  <a
-                    href="#"
+                  <Link
+                    to={"/"}
                     className="text-muted-foreground transition hover:text-primary"
                   >
                     Wallet Management
-                  </a>
+                  </Link>
                 </li>
                 <li>
-                  <a
-                    href="#"
+                  <Link
+                    to={"/"}
                     className="text-muted-foreground transition hover:text-primary"
                   >
                     Transaction History
-                  </a>
+                  </Link>
                 </li>
                 <li>
-                  <a
-                    href="#"
+                  <Link
+                    to={"/"}
                     className="text-muted-foreground transition hover:text-primary"
                   >
                     Money Transfer
-                  </a>
+                  </Link>
                 </li>
                 <li>
-                  <a
-                    href="#"
+                  <Link
+                    to={"/"}
                     className="text-muted-foreground transition hover:text-primary"
                   >
                     Role-Based Dashboard
-                  </a>
+                  </Link>
                 </li>
                 <li>
-                  <a
-                    href="#"
+                  <Link
+                    to={"/"}
                     className="text-muted-foreground transition hover:text-primary"
                   >
                     Secure Authentication
-                  </a>
+                  </Link>
                 </li>
               </ul>
             </div>
@@ -128,12 +128,12 @@ export default function Footer() {
               <p className="font-medium text-foreground">Contact</p>
               <ul className="mt-6 space-y-4 text-sm">
                 <li>
-                  <a
-                    href="mailto:ashagar619@gmail.com"
+                  <Link
+                    to={"mailto:ashagar619@gmail.com"}
                     className="text-muted-foreground transition hover:text-primary"
                   >
                     Email
-                  </a>
+                  </Link>
                 </li>
                 <li>
                   <Link
@@ -168,31 +168,31 @@ export default function Footer() {
           </div>
         </div>
 
-        <div className="pt-8 mt-8 border-t border-border">
+        <div className="py-8 mt-8 border-y border-border">
           <div className="flex flex-col md:flex-row justify-between items-center">
             <p className="text-sm text-muted-foreground">
-              &copy; {currentYear} Digital Wallet Management System. All rights
+              &copy; {currentYear} DIGI WALLET Management System. All rights
               reserved.
             </p>
             <div className="flex mt-4 md:mt-0 space-x-6">
-              <a
-                href="#"
+              <Link
+                to={"/"}
                 className="text-sm text-muted-foreground transition hover:text-primary"
               >
                 Terms
-              </a>
-              <a
-                href="#"
+              </Link>
+              <Link
+                to={"/"}
                 className="text-sm text-muted-foreground transition hover:text-primary"
               >
                 Privacy
-              </a>
-              <a
-                href="#"
+              </Link>
+              <Link
+                to={"/"}
                 className="text-sm text-muted-foreground transition hover:text-primary"
               >
                 Cookies
-              </a>
+              </Link>
             </div>
           </div>
         </div>

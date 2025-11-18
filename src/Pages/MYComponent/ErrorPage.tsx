@@ -95,26 +95,7 @@ const ErrorPage = () => {
               Go Home
             </Link>
           </Button>
-          
-          {/* <Button 
-            variant="link" 
-            className="border-border text-foreground hover:bg-secondary"
-            onClick={() => window.location.reload()}
-          >
-            <RefreshCw className="h-4 w-4 mr-2" />
-            Try Again
-          </Button> */}
         </div>
-
-        {/* Technical details (for development) */}
-        {/* {import.meta.env.DEV && (
-          <div className="mt-8 p-4 bg-secondary rounded-lg text-left">
-            <h3 className="text-sm font-semibold mb-2">Error Details (Development Only):</h3>
-            <pre className="text-xs text-muted-foreground overflow-auto">
-              {JSON.stringify(error, null, 2)}
-            </pre>
-          </div>
-        )} */}
       </motion.div>
     </div>
   );

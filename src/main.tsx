@@ -13,7 +13,7 @@ createRoot(document.getElementById("root")!).render(
     <ReduxProvider store={store}>
         <ThemeProvider defaultTheme="dark" storageKey="vite-ui-theme">
           <ToastContainer
-            position="bottom-center" // bottom to center
+            position="top-center" // bottom to center
             autoClose={3000} // auto close in 3 seconds
             hideProgressBar={false} // show progress bar
             newestOnTop={false}
