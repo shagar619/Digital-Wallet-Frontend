@@ -48,6 +48,7 @@ const navigationLinks = [
 export default function Navbar() {
 
   const { data: profileData, isLoading } = useGetMyProfileQuery(undefined);
+  // console.log(profileData)
 
   const [logout] = useLogoutUserMutation();
   const dispatch = useDispatch();
@@ -93,7 +94,7 @@ export default function Navbar() {
               animate={{ opacity: 1, x: 0 }}
               transition={{ delay: 0.2 }}
             >
-              Digital Wallet
+              DIGI WALLET
             </motion.span>
 
 
