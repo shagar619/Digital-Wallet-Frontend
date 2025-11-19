@@ -153,7 +153,7 @@ const Faq = () => {
           Contact Support
         </a>
     </div>
-    </div> 
+    </div>
   );
 };
 
