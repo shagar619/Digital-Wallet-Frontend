@@ -142,7 +142,7 @@ const Feature = () => {
 
       {/* Bottom CTA */}
       <div className="text-center mt-16">
-        <p className="text-white mb-4">
+        <p className="text-black dark:text-white mb-4 font-semibold">
           Ready to experience the future of digital payments?
         </p>
         <Link 
@@ -153,7 +153,6 @@ const Feature = () => {
         <Zap className="w-4 h-4" />
         </Link>
     </div>
-
     </div>
   );
 };
