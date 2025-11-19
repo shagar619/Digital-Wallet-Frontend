@@ -76,7 +76,7 @@ const Home = () => {
           {stats.map((stat, index) => (
           <div
           key={index} className="text-center">
-          <div className=" text-white text-3xl font-extrabold group-hover:scale-110 bg-gradient-to-tr from-primary to-blue-500 shadow-md py-6 rounded-lg hover:shadow-2xl hover:-translate-y-2 transition-all cursor-pointer">
+          <div className="text-white text-3xl font-extrabold group-hover:scale-110 bg-gradient-to-tr from-primary to-blue-500 shadow-md py-6 rounded-lg hover:shadow-2xl hover:-translate-y-2 transition-all cursor-pointer">
             {stat.value}
           </div>
           <div className="text-xl font-semibold mt-2">
