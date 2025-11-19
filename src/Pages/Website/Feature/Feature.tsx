@@ -12,8 +12,18 @@ import {
 } from "lucide-react";
 import { motion } from "framer-motion";
 import { Link } from "react-router-dom";
+import { useEffect, useState } from "react";
+import SkeletonCard from "@/Pages/MYComponent/SkeletonCard";
 
 const Feature = () => {
+
+    const [loading, setLoading] = useState(true);
+  
+    useEffect(() => {
+      const timer = setTimeout(() => setLoading(false), 1000);
+      return () => clearTimeout(timer);
+    }, []);
+
   const features = [
     {
       title: "Save Money",
@@ -86,6 +96,22 @@ const Feature = () => {
 
         {/* Features Grid */}
         <div className="grid sm:grid-cols-2 md:grid-cols-3 gap-10">
+
+        { loading? (
+          <>
+          <SkeletonCard />
+          <SkeletonCard />
+          <SkeletonCard />
+          <SkeletonCard />
+          <SkeletonCard />
+          <SkeletonCard />
+          <SkeletonCard />
+          <SkeletonCard />
+          <SkeletonCard />
+          </>
+        ) : 
+        (
+          <>
           {features.map((f, i) => (
             <motion.div
               key={i}
@@ -107,6 +133,10 @@ const Feature = () => {
               <p className="mt-4 text-gray-600 dark:text-gray-300 leading-relaxed">{f.desc}</p>
             </motion.div>
           ))}
+          </>
+        )
+        }
+
         </div>
       </section>
 
