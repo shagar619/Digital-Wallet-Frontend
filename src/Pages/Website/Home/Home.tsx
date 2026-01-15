@@ -1,17 +1,16 @@
 import Hero from "@/section/Hero";
+
+import { PartnersSection, SavingsSection, SecuritySection, } from "@/section/AdditionalFeatures";
 import Features from "@/section/Features";
-import { PartnersSection, PricingSection, SavingsSection, SecuritySection, TestimonialsSection } from "@/section/AdditionalFeatures";
+import Testimonials from "@/section/Testimonials";
 
 
 const Home = () => {
 
   return (
     <div className="bg-background text-foreground min-h-screen">
-
       {/* Hero Section */}
       <Hero></Hero>
-
-      {/* <Features></Features> */}
 
       {/* 1. Immediate Credibility */}
         <PartnersSection /> 
@@ -26,11 +25,12 @@ const Home = () => {
         <SecuritySection />
         
         {/* 5. Social Proof: User reviews */}
-        <TestimonialsSection />
+        {/* <TestimonialsSection /> */}
+        <Testimonials></Testimonials>
         
         {/* 6. The "Ask": Pricing */}
-        <PricingSection />
-
+        {/* <PricingSection /> */}
+        
     </div>
   );
 };
