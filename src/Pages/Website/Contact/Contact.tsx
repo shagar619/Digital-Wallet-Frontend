@@ -12,7 +12,7 @@ import SkeletonCard from "@/Pages/MYComponent/SkeletonCard";
 const Contact = () => {
 
     const [loading, setLoading] = useState(true);
-    
+
     useEffect(() => {
       const timer = setTimeout(() => setLoading(false), 1000);
       return () => clearTimeout(timer);
@@ -130,7 +130,7 @@ const Contact = () => {
                     </div>
                     <div className="space-y-2">
                       <Label className="text-black dark:text-white" htmlFor="email">Email</Label>
-                      <Input className="dark:border-none" id="email" type="email" placeholder="john@example.com" required />
+                      <Input className="dark:border-none" id="email" type="email" placeholder="email@example.com" required />
                     </div>
                   </div>
 
