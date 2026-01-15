@@ -1,51 +1,13 @@
-import { motion } from 'framer-motion';
 import { 
   Wallet, Twitter, Instagram, Linkedin, Github, 
-  Globe, Apple, Play 
+  Globe 
 } from 'lucide-react';
 
 const Footer = () => {
   return (
     <footer className="bg-slate-950 relative overflow-hidden font-sans">
-      
-      {/* --- PART 1: PRE-FOOTER CTA (Call to Action) --- */}
-      <div className="relative border-b border-white/10">
-        <div className="absolute inset-0 bg-emerald-900/10" />
-        <div className="container mx-auto px-6 py-20 relative z-10">
-          <motion.div 
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            className="flex flex-col md:flex-row items-center justify-between gap-10 bg-gradient-to-r from-slate-900 to-slate-800 border border-slate-700 rounded-3xl p-10 shadow-2xl"
-          >
-            <div className="space-y-4 text-center md:text-left">
-              <h2 className="text-3xl font-bold text-white">Ready to take control?</h2>
-              <p className="text-slate-400 max-w-md">
-                Join 2 million+ users tracking their wealth with Gigi Wallet today.
-              </p>
-            </div>
-            
-            <div className="flex flex-col sm:flex-row gap-4">
-              <button className="flex items-center gap-3 bg-white text-slate-950 px-6 py-3 rounded-xl font-bold hover:bg-slate-200 transition-colors">
-                <Apple size={20} className="mb-1" />
-                <div className="text-left leading-tight">
-                  <div className="text-[10px] font-medium uppercase text-slate-500">Download on the</div>
-                  <div className="-mt-1">App Store</div>
-                </div>
-              </button>
-              <button className="flex items-center gap-3 bg-slate-950 border border-slate-700 text-white px-6 py-3 rounded-xl font-bold hover:border-emerald-500 transition-colors">
-                <Play size={20} className="mb-1 fill-white" />
-                <div className="text-left leading-tight">
-                  <div className="text-[10px] font-medium uppercase text-slate-400">Get it on</div>
-                  <div className="-mt-1">Google Play</div>
-                </div>
-              </button>
-            </div>
-          </motion.div>
-        </div>
-      </div>
 
-      {/* --- PART 2: MAIN LINKS --- */}
+      {/* --- PART 1: MAIN LINKS --- */}
       <div className="container mx-auto px-6 py-16">
         <div className="grid grid-cols-2 md:grid-cols-12 gap-10 mb-16">
           
@@ -107,7 +69,7 @@ const Footer = () => {
           </div>
         </div>
 
-        {/* --- PART 3: BOTTOM BAR & LEGAL TEXT --- */}
+        {/* --- PART 2: BOTTOM BAR & LEGAL TEXT --- */}
         <div className="border-t border-slate-800 pt-8">
           <div className="flex flex-col md:flex-row justify-between items-center gap-4 mb-8">
             <div className="flex items-center gap-2 text-sm text-slate-400">
@@ -116,9 +78,9 @@ const Footer = () => {
             </div>
             
             <div className="flex items-center gap-6 text-sm font-medium text-slate-400">
-               <button className="flex items-center gap-2 hover:text-white">
-                 <Globe size={16} /> English (US)
-               </button>
+              <button className="flex items-center gap-2 hover:text-white">
+                <Globe size={16} /> English (US)
+              </button>
             </div>
           </div>
 
