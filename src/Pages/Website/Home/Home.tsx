@@ -1,8 +1,7 @@
 import { useState, useEffect } from "react";
 import { motion } from "framer-motion";
-import { Button } from "@/components/ui/button";
 import SkeletonCard from "@/Pages/MYComponent/SkeletonCard";
-import bannerImg from "../../../assets/hero1.jpg";
+import Hero from "@/section/Hero";
 
 
 const Home = () => {
@@ -26,42 +25,7 @@ const Home = () => {
     <div className="bg-background text-foreground min-h-screen">
 
       {/* Hero Section */}
-      <section
-        id="home"
-        className="relative h-screen flex items-center justify-center text-center px-4 bg-cover bg-center"
-        style={{ backgroundImage: `url(${bannerImg})` }}
-      >
-        {/* Dark Overlay */}
-        <div className="absolute inset-0 bg-black/5"></div>
-
-        {/* Content */}
-        <div className="relative z-10">
-          <motion.h1
-            initial={{ opacity: 0, y: -30 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.7, ease: "easeOut" }}
-            className="text-4xl md:text-6xl font-extrabold text-blue-600 drop-shadow-lg"
-          >
-            Digital Wallet Management
-          </motion.h1>
-
-          <p className="mt-4 text-lg text-gray-200 max-w-2xl mx-auto leading-relaxed">
-            Manage your money with elegance, speed, and security.
-          </p>
-
-          <div className="mt-8 flex flex-wrap gap-4 justify-center">
-            <Button className="bg-primary text-gray-300 hover:text-primary-foreground hover:bg-primary/90 cursor-pointer">
-              Get Started
-            </Button>
-            <Button
-              variant="outline"
-              className="border border-white text-gray-300 hover:bg-primary hover:text-primary-foreground transition cursor-pointer"
-            >
-              Learn More
-            </Button>
-          </div>
-        </div>
-      </section>
+      <Hero></Hero>
 
       {/* Features Section */}
       <section
