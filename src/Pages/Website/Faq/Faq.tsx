@@ -1,160 +1,211 @@
-import SkeletonCard from "@/Pages/MYComponent/SkeletonCard";
-import { motion } from "framer-motion";
-import { HelpCircle } from "lucide-react";
-import { useEffect, useState } from "react";
+import { useState } from 'react';
+import { motion, AnimatePresence, LayoutGroup } from 'framer-motion';
+import { 
+  Search, ChevronDown, Shield, CreditCard, 
+  User, Wallet, MessageCircle, Mail 
+} from 'lucide-react';
 
-const Faq = () => {
+// --- DATA ---
+const categories = [
+  { id: 'all', label: 'All Questions', icon: <Search size={16} /> },
+  { id: 'general', label: 'Getting Started', icon: <User size={16} /> },
+  { id: 'security', label: 'Security', icon: <Shield size={16} /> },
+  { id: 'billing', label: 'Billing & Plans', icon: <CreditCard size={16} /> },
+  { id: 'crypto', label: 'Crypto & Web3', icon: <Wallet size={16} /> },
+];
 
-    const [loading, setLoading] = useState(true);
-      
-    useEffect(() => {
-      const timer = setTimeout(() => setLoading(false), 1000);
-      return () => clearTimeout(timer);
-    }, []);
+const faqData = [
+  // General
+  { id: 1, category: 'general', question: "How do I verify my identity?", answer: "To verify your identity, go to Settings > Account > Verification. You will need to upload a photo of your government-issued ID (Passport or Driver's License) and take a selfie. Verification usually takes less than 5 minutes." },
+  { id: 2, category: 'general', question: "Is Gigi Wallet available in my country?", answer: "We currently support over 140 countries, including the US, UK, Canada, Australia, and most of the EU. You can view the full list on our supported regions page." },
+  
+  // Security
+  { id: 3, category: 'security', question: "What happens if I lose my phone?", answer: "Don't panic. You can freeze your account instantly by logging into our web portal from any computer. Once you have a new device, you can recover your account using your backup phrase and 2FA method." },
+  { id: 4, category: 'security', question: "Is my money insured?", answer: "Yes. USD balances held in Gigi Wallet are eligible for FDIC pass-through insurance up to $250,000 through our partner banks. Crypto assets are not FDIC insured but are protected by our industry-leading cold storage protocols." },
+  
+  // Billing
+  { id: 5, category: 'billing', question: "Can I upgrade or downgrade my plan anytime?", answer: "Absolutely. If you upgrade to Pro, the features are unlocked immediately. If you downgrade, you will keep your Pro features until the end of your current billing cycle." },
+  { id: 6, category: 'billing', question: "What payment methods do you accept?", answer: "For subscription fees, we accept all major credit/debit cards (Visa, Mastercard, Amex) and direct bank debits. We do not currently accept crypto for subscription payments." },
+  
+  // Crypto
+  { id: 7, category: 'crypto', question: "How do I connect my MetaMask wallet?", answer: "Go to the 'Assets' tab and click 'Connect Wallet'. Select MetaMask from the list. You will be asked to sign a message to verify ownership. We strictly have read-only access to your external wallets." },
+  { id: 8, category: 'crypto', question: "What are the gas fees for transfers?", answer: "Transfers between Gigi users are off-chain and free. Transfers to external wallets incur standard blockchain network fees (gas), which are passed on to the network miners, not us." },
+  { id: 9, category: 'crypto', question: "Which tokens do you support?", answer: "We currently support BTC, ETH, SOL, MATIC, and over 100+ ERC-20 tokens. We add new assets monthly based on community voting." },
+];
 
-    const faqs = [
-    {
-      question: "How do I create a PayWallet account?",
-      answer: "Creating an account is simple! Click on 'Get Started' or 'Register', fill in your basic information including name, email, phone number, and choose your account type (User or Agent). Verify your email and phone, and you're all set!"
-    },
-    {
-      question: "Is PayWallet secure?",
-      answer: "Absolutely! We use bank-level encryption, two-factor authentication, and comply with international security standards. All sensitive data is encrypted and your transactions are protected with advanced fraud detection systems."
-    },
-    {
-      question: "What are the transaction fees?",
-      answer: "Transaction fees vary by transaction type: Send Money (1% fee, max $5), Cash Out (1.5% fee, max $10), Bill Payments (Free), and Merchant Payments (2% for business accounts). Premium and Business plans may have reduced fees."
-    },
-    {
-      question: "How do I add money to my wallet?",
-      answer: "You can add money through multiple methods: via an agent cash-in, bank transfer, or linked debit/credit cards. Simply select 'Add Money' from your dashboard and choose your preferred method."
-    },
-    {
-      question: "Can I send money internationally?",
-      answer: "Yes! PayWallet supports international transfers to over 150 countries. Multi-currency support is available for Premium and Business accounts with competitive exchange rates."
-    },
-    {
-      question: "What's the difference between User and Agent accounts?",
-      answer: "User accounts are for personal use - sending, receiving money, and making payments. Agent accounts are for authorized partners who can help users cash in/out and earn commissions on transactions."
-    },
-    {
-      question: "How long do transactions take?",
-      answer: "Most transactions are instant! Money transfers, bill payments, and merchant transactions are processed in real-time. Bank withdrawals may take 1-3 business days depending on your bank."
-    },
-    {
-      question: "What if I forget my password?",
-      answer: "Click on 'Forgot Password' on the login page, enter your registered email, and we'll send you a password reset link. You can also contact support for assistance."
-    },
-    {
-      question: "Are there transaction limits?",
-      answer: "Yes, limits vary by account type. Basic accounts have standard limits, while Premium and Business accounts enjoy higher transaction limits. You can view your specific limits in your account settings."
-    },
-    {
-      question: "How do I become an agent?",
-      answer: "To become an agent, register with an Agent account type, complete the verification process including business documentation, and await approval from our team. Once approved, you can start serving customers and earning commissions."
-    },
-    {
-      question: "What should I do if I suspect unauthorized access?",
-      answer: "Immediately change your password, enable two-factor authentication if not already active, and contact our 24/7 support team. We'll help secure your account and investigate any suspicious activity."
-    },
-    {
-      question: "Can I cancel a transaction?",
-      answer: "Once a transaction is completed, it cannot be canceled as funds are transferred instantly. However, you can request a refund from the recipient or contact support for assistance with disputed transactions."
-    }
-  ];
-  //   {
-  //     q: "What is the cash-out fee?",
-  //     a: "For every 1000 Taka or above, the cash-out fee is 20 Taka, shared fairly between the Agent and Admin.",
-  //   },
-  //   {
-  //     q: "Can I send money to other users?",
-  //     a: "Yes, users can securely transfer money to others instantly with just a few clicks.",
-  //   },
-  //   {
-  //     q: "How can agents top-up user accounts?",
-  //     a: "Agents can easily add money to user accounts directly and assist with transactions.",
-  //   },
-  //   {
-  //     q: "Is my money safe?",
-  //     a: "Absolutely! We use top-tier security measures to ensure your digital wallet remains fully protected.",
-  //   },
-  // ];
+// --- MAIN COMPONENT ---
+const FAQ = () => {
+  const [activeCategory, setActiveCategory] = useState('all');
+  const [searchQuery, setSearchQuery] = useState('');
+  const [openItem, setOpenItem] = useState<number | null>(null);
+
+  // Filter Logic
+  const filteredFaqs = faqData.filter(item => {
+    const matchesCategory = activeCategory === 'all' || item.category === activeCategory;
+    const matchesSearch = item.question.toLowerCase().includes(searchQuery.toLowerCase()) || 
+                          item.answer.toLowerCase().includes(searchQuery.toLowerCase());
+    return matchesCategory && matchesSearch;
+  });
+
 
   return (
-    <div className="py-24 bg-gradient-to-b from-gray-50 to-gray-100 dark:from-gray-900 dark:to-gray-950 min-h-screen pt-24 px-6">
+    <div className="bg-slate-950 min-h-screen font-sans selection:bg-emerald-500/30">
       
-      { loading? (
-        <>
-        <section className="max-w-4xl mx-auto py-16 space-y-4">
-        <SkeletonCard />
-        <SkeletonCard />
-        <SkeletonCard />
-        <SkeletonCard />
-        </section>
-        </>
-      ):
-      (
-        <>
-        <section className="max-w-4xl mx-auto py-16">
-        {/* Title */}
-        <motion.h1
-          initial={{ opacity: 0, y: -20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.6 }}
-          className="text-4xl font-extrabold text-center mb-4 text-black dark:text-white"
-        >
-          Frequently Asked Questions
-        </motion.h1>
+      {/* 1. HERO SEARCH SECTION */}
+      <section className="pt-40 pb-12 px-6 relative overflow-hidden">
+        {/* Background Gradients */}
+        <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[1000px] h-[500px] bg-emerald-500/5 blur-[120px] rounded-full pointer-events-none" />
+        
+        <div className="container mx-auto max-w-3xl text-center relative z-10">
+          <motion.h1 
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            className="text-4xl md:text-6xl font-bold text-white mb-6"
+          >
+            How can we <span className="text-emerald-400">help?</span>
+          </motion.h1>
+          <motion.p 
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ delay: 0.1 }}
+            className="text-slate-400 text-lg mb-10"
+          >
+            Search our knowledge base or browse categories below.
+          </motion.p>
 
-        {/* Subtitle */}
-        <p className="text-center text-lg text-gray-600 dark:text-gray-300 max-w-3xl mx-auto mb-24 mt-8">
-          Got questions? We've got answers! Learn more about our fees,
-          transfers, and security measures.
-        </p>
-
-        {/* FAQ Cards */}
-        <div className="space-y-6">
-          {faqs.map((faq, i) => (
-            <motion.div
-              key={i}
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.5, delay: i * 0.1 }}
-              className="relative group bg-white/70 dark:bg-gray-800/70 backdrop-blur-xl border border-gray-200 dark:border-gray-700 p-8 rounded-3xl shadow-lg hover:shadow-2xl hover:-translate-y-2 transition-all cursor-pointer"
-            >
-              <div className="flex items-center mb-2">
-                <div className="w-8 h-8 flex items-center justify-center rounded-full bg-primary/10 mr-3">
-                  <HelpCircle
-                    className="w-5 h-5"
-                    style={{ color: "var(--primary)" }}
-                  />
-                </div>
-                <h3 className="text-lg md:text-xl font-bold text-black dark:text-white">{faq.question}</h3>
-              </div>
-              <p className="text-[15px] text-gray-700 dark:text-gray-300">{faq.answer}</p>
-            </motion.div>
-          ))}
+          {/* Search Input */}
+          <motion.div 
+            initial={{ opacity: 0, scale: 0.95 }}
+            animate={{ opacity: 1, scale: 1 }}
+            transition={{ delay: 0.2 }}
+            className="relative max-w-xl mx-auto group"
+          >
+            <div className="absolute inset-y-0 left-0 pl-4 flex items-center pointer-events-none">
+              <Search className="text-slate-500 group-focus-within:text-emerald-400 transition-colors" />
+            </div>
+            <input 
+              type="text" 
+              placeholder="Search for answers (e.g. 'crypto fees', 'lost card')..." 
+              value={searchQuery}
+              onChange={(e) => setSearchQuery(e.target.value)}
+              className="w-full pl-12 pr-4 py-4 bg-slate-900 border border-slate-800 rounded-xl text-white placeholder-slate-500 focus:outline-none focus:border-emerald-500 focus:ring-1 focus:ring-emerald-500 transition-all shadow-lg shadow-black/50"
+            />
+          </motion.div>
         </div>
       </section>
-      </>
-      )
-      }
 
-      {/* Contact CTA */}
-      <div className="text-center mt-12">
-        <p className="text-black dark:text-white mb-4">
-          Still have questions? We're here to help!
-        </p>
-        <a 
-          href="/contact" 
-          className="inline-flex items-center gap-2 text-primary font-semibold hover:underline"
-        >
-          Contact Support
-        </a>
-    </div>
+      {/* 2. CATEGORY TABS */}
+      <section className="px-6 mb-12">
+        <div className="container mx-auto max-w-4xl">
+          <div className="flex flex-wrap justify-center gap-3">
+            {categories.map((cat, i) => (
+              <motion.button
+                key={cat.id}
+                initial={{ opacity: 0, y: 10 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ delay: 0.3 + (i * 0.05) }}
+                onClick={() => { setActiveCategory(cat.id); setOpenItem(null); }}
+                className={`flex items-center gap-2 px-5 py-2.5 rounded-full text-sm font-medium transition-all ${
+                  activeCategory === cat.id 
+                    ? 'bg-emerald-500 text-white shadow-lg shadow-emerald-500/25' 
+                    : 'bg-slate-900 text-slate-400 border border-slate-800 hover:bg-slate-800 hover:text-white'
+                }`}
+              >
+                {cat.icon}
+                {cat.label}
+              </motion.button>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* 3. FAQ LIST */}
+      <section className="pb-32 px-6 min-h-[500px]">
+        <div className="container mx-auto max-w-3xl">
+          <LayoutGroup>
+            <motion.div layout className="space-y-4">
+              {filteredFaqs.length > 0 ? (
+                filteredFaqs.map((item) => (
+                  <motion.div 
+                    layout
+                    key={item.id}
+                    initial={{ opacity: 0 }}
+                    animate={{ opacity: 1 }}
+                    exit={{ opacity: 0 }}
+                    onClick={() => setOpenItem(openItem === item.id ? null : item.id)}
+                    className={`bg-slate-900/50 border rounded-2xl overflow-hidden cursor-pointer transition-colors ${
+                      openItem === item.id ? 'border-emerald-500/50 bg-slate-900' : 'border-slate-800 hover:border-slate-700'
+                    }`}
+                  >
+                    <div className="p-6 flex justify-between items-start gap-4">
+                      <h3 className={`text-lg font-medium transition-colors ${openItem === item.id ? 'text-emerald-400' : 'text-slate-200'}`}>
+                        {item.question}
+                      </h3>
+                      <motion.div 
+                        animate={{ rotate: openItem === item.id ? 180 : 0 }}
+                        className="text-slate-500 shrink-0 mt-1"
+                      >
+                        <ChevronDown size={20} />
+                      </motion.div>
+                    </div>
+                    
+                    <AnimatePresence>
+                      {openItem === item.id && (
+                        <motion.div
+                          initial={{ height: 0, opacity: 0 }}
+                          animate={{ height: 'auto', opacity: 1 }}
+                          exit={{ height: 0, opacity: 0 }}
+                          transition={{ duration: 0.3 }}
+                        >
+                          <div className="px-6 pb-6 text-slate-400 leading-relaxed border-t border-slate-800/50 mt-2 pt-4">
+                            {item.answer}
+                          </div>
+                        </motion.div>
+                      )}
+                    </AnimatePresence>
+                  </motion.div>
+                ))
+              ) : (
+                <motion.div 
+                  initial={{ opacity: 0 }} 
+                  animate={{ opacity: 1 }} 
+                  className="text-center py-20"
+                >
+                  <div className="inline-block p-4 rounded-full bg-slate-900 mb-4">
+                    <Search className="text-slate-500 w-8 h-8" />
+                  </div>
+                  <h3 className="text-white font-bold mb-2">No results found</h3>
+                  <p className="text-slate-500">Try adjusting your search terms or browse all categories.</p>
+                </motion.div>
+              )}
+            </motion.div>
+          </LayoutGroup>
+        </div>
+      </section>
+
+      {/* 4. SUPPORT CONTACT CTA */}
+      <section className="pb-20 px-6">
+        <div className="container mx-auto max-w-4xl">
+          <div className="bg-gradient-to-r from-slate-900 to-slate-800 border border-slate-700 rounded-3xl p-10 flex flex-col md:flex-row items-center justify-between gap-8 text-center md:text-left">
+            <div>
+              <h2 className="text-2xl font-bold text-white mb-2">Still have questions?</h2>
+              <p className="text-slate-400 max-w-md">Can't find what you're looking for? Our team is happy to help.</p>
+            </div>
+            
+            <div className="flex flex-col sm:flex-row gap-4">
+              <button className="flex items-center justify-center gap-2 px-6 py-3 bg-white text-slate-950 rounded-xl font-bold hover:bg-slate-200 transition-colors">
+                <MessageCircle size={18} /> Chat with Support
+              </button>
+              <button className="flex items-center justify-center gap-2 px-6 py-3 bg-transparent border border-slate-600 text-white rounded-xl font-bold hover:bg-slate-800 transition-colors">
+                <Mail size={18} /> Email Us
+              </button>
+            </div>
+          </div>
+        </div>
+      </section>
+
     </div>
   );
 };
 
-export default Faq;
+export default FAQ;
