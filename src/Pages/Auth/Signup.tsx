@@ -439,11 +439,10 @@ const Signup = () => {
             {/* Footer Link */}
             <p className="text-center text-slate-400 mt-8">
               Already have an account?{' '}
-              <Link to="/signin" className="text-emerald-400 font-medium hover:underline">
+              <Link to="/login" className="text-emerald-400 font-medium hover:underline">
                 Sign in
               </Link>
             </p>
-
           </div>
         </motion.div>
       </div>
