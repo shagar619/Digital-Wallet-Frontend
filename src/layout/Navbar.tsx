@@ -291,10 +291,7 @@ import { useState, useEffect } from 'react';
 import { Link, useLocation } from 'react-router-dom';
 import { motion, AnimatePresence } from 'framer-motion';
 import logo from "../assets/digi-wallet.png";
-import { 
-  Wallet, Menu, X, Sun, Moon, 
-  User, LogOut, Settings, ChevronDown 
-} from 'lucide-react';
+import { Menu, X, Sun, Moon, User, LogOut, Settings, ChevronDown } from 'lucide-react';
 
 // --- CONFIGURATION ---
 const navigationLinks = [
