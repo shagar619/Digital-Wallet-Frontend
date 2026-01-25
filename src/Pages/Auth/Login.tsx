@@ -1,161 +1,57 @@
-// /* eslint-disable @typescript-eslint/no-explicit-any */
-// import { useState } from "react";
-// import { Input } from "@/components/ui/input";
-// import { Button } from "@/components/ui/button";
-// import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-// import { toast } from "react-toastify";
-// import { Link, useNavigate } from "react-router-dom";
-// import { handleApiError } from "@/utils/handleApiError";
-// import { Eye, EyeOff } from "lucide-react";
-// import { useLoginUserMutation } from "@/redux/features/auth/auth.api";
-
-// const Login = () => {
-  
-//   const navigate = useNavigate();
-//   const [form, setForm] = useState({ email: "", password: "" });
-//   const [showPassword, setShowPassword] = useState(false);
-
-//   const [loginUser, { isLoading }] = useLoginUserMutation();
-
-//   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-//     setForm({ ...form, [e.target.name]: e.target.value });
-//   };
-
-//   const togglePasswordVisibility = () => setShowPassword(!showPassword);
-
-//   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
-//     e.preventDefault();
-//     try {
-//         // console.log("🔗 Sending login request to:", form);
-//         const result = await loginUser(form).unwrap();
-//         // console.log("✅ Login response:", result);
-
-//       if (result.token) sessionStorage.setItem("authToken", result.token);
-
-//       if (
-//         result?.data?.user?.IsActive === "BLOCKED" ||
-//         result?.data?.user?.IsActive === "INACTIVE"
-//       ) {
-//         navigate("/login");
-//         toast.error(`User is ${result?.data?.user?.IsActive}`);
-//       } else {
-//         toast.success("Logged in successfully!");
-//         navigate("/");
-//       }
-//     } catch (err: any) {
-//       handleApiError(err);
-//     }
-//   };
-
-//   return (
-//     <div className="flex items-center justify-center min-h-screen bg-background">
-//       <Card className="w-full max-w-md bg-card border border-input rounded-2xl shadow-xl p-6">
-//         <CardHeader className="text-center">
-//           <CardTitle className="text-3xl md:text-4xl font-extrabold text-primary mb-2">
-//             Login
-//           </CardTitle>
-//           <p className="text-muted-foreground text-sm md:text-base">
-//             Welcome back! Please login to access your account.
-//           </p>
-//         </CardHeader>
-
-//         <CardContent>
-//           <form onSubmit={handleSubmit} className="space-y-6">
-//             <Input
-//               type="email"
-//               placeholder="Email Address"
-//               name="email"
-//               value={form.email}
-//               onChange={handleChange}
-//               required
-//               className="w-full p-3 rounded-lg bg-background text-foreground border border-input focus:border-primary focus:ring-2 focus:ring-primary placeholder:text-muted-foreground transition"
-//             />
-//             <div className="relative">
-//               <Input
-//                 type={showPassword ? "text" : "password"}
-//                 placeholder="Password"
-//                 name="password"
-//                 value={form.password}
-//                 onChange={handleChange}
-//                 required
-//                 className="w-full p-3 pr-12 rounded-lg bg-background text-foreground border border-input focus:border-primary focus:ring-2 focus:ring-primary placeholder:text-muted-foreground transition"
-//               />
-//               <button
-//                 type="button"
-//                 onClick={togglePasswordVisibility}
-//                 className="absolute inset-y-0 right-0 pr-4 flex items-center text-muted-foreground hover:text-primary transition-colors duration-200"
-//               >
-//                 {showPassword ? (
-//                   <EyeOff className="h-6 w-6" />
-//                 ) : (
-//                   <Eye className="h-6 w-6" />
-//                 )}
-//               </button>
-//             </div>
-//             <Button
-//               type="submit"
-//               className="w-full py-3 bg-primary text-primary-foreground font-semibold text-lg rounded-lg hover:bg-primary/90 transition-all duration-300 shadow-md"
-//               disabled={isLoading}
-//             >
-//               {isLoading ? "Logging in..." : "Login"}
-//             </Button>
-//           </form>
-
-//           <p className="text-center text-sm text-muted-foreground mt-6">
-//             Don’t have an account?{" "}
-//             <Link
-//               to="/signup"
-//               className="text-primary font-semibold underline hover:text-primary/80 transition-colors duration-300"
-//             >
-//               Sign Up
-//             </Link>
-//           </p>
-//         </CardContent>
-//       </Card>
-//     </div>
-//   );
-// };
-
-// export default Login;
-
-
-
-
-
-
-
-
-
-
-
-
 import { useState } from 'react';
 import { motion } from 'framer-motion';
 import { 
   Mail, Lock, Eye, EyeOff, ArrowRight, 
   Loader2, Wallet, ShieldCheck, Check 
 } from 'lucide-react';
-import { Link } from 'react-router-dom'; // Assuming react-router usage
+import { Link, useNavigate } from 'react-router-dom'; // Assuming react-router usage
+import { useLoginMutation } from '@/redux/api/authApi';
+import { useForm, type SubmitHandler } from 'react-hook-form';
+import { toast } from 'sonner';
+
+interface ILoginInput {
+  email: string;
+  password: string;
+}
+
 
 const Login = () => {
-  const [isLoading, setIsLoading] = useState(false);
+
   const [showPassword, setShowPassword] = useState(false);
   const [rememberMe, setRememberMe] = useState(false);
-  const [formData, setFormData] = useState({ email: '', password: '' });
+  const navigate = useNavigate();
 
-  const handleSubmit = (e: React.FormEvent) => {
-    e.preventDefault();
-    setIsLoading(true);
-    // Simulate Login API
-    setTimeout(() => {
-      setIsLoading(false);
-      console.log("Logged in with:", formData);
-      alert("Welcome back! (Simulation)");
-    }, 2000);
+  // Redux Hook
+  const [loginUser, { isLoading }] = useLoginMutation();
+
+  const { register, handleSubmit, formState: { errors } } = useForm<ILoginInput>();
+
+
+  const onSubmit: SubmitHandler<ILoginInput> = async (data) => {
+    try {
+      const res = await loginUser(data).unwrap();
+
+      if (res.token) sessionStorage.setItem("authToken", res.token);
+      
+      if (
+        res?.data?.user?.IsActive === "BLOCKED" ||
+        res?.data?.user?.IsActive === "INACTIVE"
+      ) {
+        navigate("/login");
+        toast.error(`User is ${res?.data?.user?.IsActive}`);
+      } else {
+        toast.success("Logged in successfully!");
+        navigate("/");
+      }
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    } catch (err: any) {
+      toast.error(err.data?.message || "Invalid credentials");
+    }
   };
 
+
   return (
-    <div className="min-h-screen bg-slate-950 flex font-sans selection:bg-emerald-500/30 overflow-hidden relative">
+    <div className="min-h-screen bg-slate-950 flex font-sans selection:bg-emerald-500/30 overflow-hidden relative pt-18">
       
       {/* Background Ambience */}
       <div className="absolute inset-0 pointer-events-none">
@@ -247,7 +143,7 @@ const Login = () => {
               <div className="relative flex justify-center text-xs uppercase"><span className="bg-slate-900 px-4 text-slate-500 font-medium">Or continue with</span></div>
             </div>
 
-            <form onSubmit={handleSubmit} className="space-y-6">
+            <form onSubmit={handleSubmit(onSubmit)} className="space-y-6">
               
               {/* Email Input */}
               <div className="space-y-2">
@@ -259,12 +155,12 @@ const Login = () => {
                     <input 
                       type="email" 
                       placeholder="john@example.com" 
-                      value={formData.email}
-                      onChange={(e) => setFormData({...formData, email: e.target.value})}
+                      {...register("email", { required: "Email is required" })}
                       className="w-full bg-slate-950/50 border border-slate-800 rounded-xl pl-12 pr-4 py-3.5 text-white placeholder-slate-600 focus:outline-none focus:border-emerald-500 focus:ring-1 focus:ring-emerald-500 transition-all"
                       required
                     />
                 </div>
+                {errors.email && <span className="text-red-400 text-xs pl-1">{errors.email.message}</span>}
               </div>
 
               {/* Password Input */}
@@ -278,10 +174,9 @@ const Login = () => {
                       <Lock size={20} />
                     </div>
                     <input 
-                      type={showPassword ? 'text' : 'password'}
                       placeholder="••••••••" 
-                      value={formData.password}
-                      onChange={(e) => setFormData({...formData, password: e.target.value})}
+                      type={showPassword ? 'text' : 'password'} 
+                      {...register("password", { required: "Password is required" })}
                       className="w-full bg-slate-950/50 border border-slate-800 rounded-xl pl-12 pr-12 py-3.5 text-white placeholder-slate-600 focus:outline-none focus:border-emerald-500 focus:ring-1 focus:ring-emerald-500 transition-all"
                       required
                     />
@@ -292,6 +187,7 @@ const Login = () => {
                     >
                       {showPassword ? <EyeOff size={20} /> : <Eye size={20} />}
                     </button>
+                    {errors.password && <span className="text-red-400 text-xs pl-1">{errors.password.message}</span>}
                 </div>
               </div>
 
