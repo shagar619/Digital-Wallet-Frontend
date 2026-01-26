@@ -3,7 +3,7 @@ import { useState, useEffect } from 'react';
 import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { motion, AnimatePresence } from 'framer-motion';
 import logo from "../assets/digi-wallet.png";
-import { Menu, X, Sun, Moon, User, LogOut, Settings, ChevronDown } from 'lucide-react';
+import { Menu, X, Sun, Moon, User, LogOut, Settings, ChevronDown, Loader2 } from 'lucide-react';
 import { useGetMyProfileQuery } from '@/redux/api/userApi';
 import { useLogoutMutation } from '@/redux/api/authApi';
 import { toast } from 'sonner';
@@ -26,7 +26,7 @@ const Navbar = () => {
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
   const location = useLocation();
   const navigate = useNavigate();
-  
+
 // --- REDUX HOOKS ---
   // 1. Fetch User Profile
   const { data: profileResponse, isLoading, isError } = useGetMyProfileQuery(undefined, {
@@ -35,11 +35,6 @@ const Navbar = () => {
   });
 
   const user = profileResponse?.data; // Extract user object from response
-
-  console.log("User Profile:", user?.name);
-
-  // Change this to true/false to see the different states
-  const [isLoggedIn, setIsLoggedIn] = useState(false);
 
   // 2. Logout Mutation
   const [logoutUser, { isLoading: isLogoutLoading }] = useLogoutMutation();
@@ -53,8 +48,7 @@ const Navbar = () => {
       toast.error(`Logout failed: ${error?.data?.message || error.message}`);
     }
   };
-  
-  
+
 
   // Handle Scroll Effect
   useEffect(() => {
@@ -120,7 +114,6 @@ const Navbar = () => {
 
         {/* --- 3. ACTIONS (Right) --- */}
         <div className="hidden lg:flex items-center gap-4">
-          
           {/* Theme Toggler */}
           <button 
             onClick={toggleTheme}
@@ -135,19 +128,22 @@ const Navbar = () => {
             </motion.div>
           </button>
 
-          {isLoggedIn ? (
-            /* LOGGED IN STATE: USER DROPDOWN */
+          {/* AUTH STATE CHECK */}
+          {isLoading ? (
+            <Loader2 className="animate-spin text-emerald-500" />
+          ) : user && !isError ? (
+            /* --- LOGGED IN: USER DROPDOWN --- */
             <div className="relative">
               <button 
                 onClick={() => setIsDropdownOpen(!isDropdownOpen)}
                 className="flex items-center gap-3 pl-2 pr-4 py-1.5 bg-slate-900 border border-slate-800 rounded-full hover:border-slate-700 transition-all"
               >
-                <div className="w-8 h-8 rounded-full bg-gradient-to-r from-emerald-400 to-cyan-500 flex items-center justify-center text-white font-bold text-xs">
-                  JD
+                <div className="w-8 h-8 rounded-full bg-gradient-to-r from-emerald-400 to-cyan-500 flex items-center justify-center text-white font-bold text-xs uppercase">
+                  {user.name.slice(0, 2)}
                 </div>
                 <div className="text-left hidden xl:block">
-                  <p className="text-xs font-bold text-white leading-none mb-0.5">John Doe</p>
-                  <p className="text-[10px] text-slate-400 leading-none">User</p>
+                  <p className="text-xs font-bold text-white leading-none mb-0.5">{user.name}</p>
+                  <p className="text-[10px] text-slate-400 leading-none capitalize">{user.role}</p>
                 </div>
                 <ChevronDown size={14} className={`text-slate-500 transition-transform ${isDropdownOpen ? 'rotate-180' : ''}`} />
               </button>
@@ -161,8 +157,8 @@ const Navbar = () => {
                     className="absolute top-full right-0 mt-2 w-64 bg-slate-900 border border-slate-800 rounded-2xl shadow-2xl overflow-hidden p-2"
                   >
                     <div className="p-3 border-b border-slate-800 mb-2">
-                      <p className="text-white font-bold">John Doe</p>
-                      <p className="text-slate-400 text-xs">john.doe@example.com</p>
+                      <p className="text-white font-bold">{user.name}</p>
+                      <p className="text-slate-400 text-xs truncate">{user.email}</p>
                     </div>
                     
                     <Link to="/profile" className="flex items-center gap-3 px-3 py-2 text-slate-300 hover:bg-slate-800 rounded-lg text-sm transition-colors">
@@ -175,22 +171,24 @@ const Navbar = () => {
                     <div className="h-px bg-slate-800 my-2" />
                     
                     <button 
-                      onClick={() => setIsLoggedIn(false)} 
-                      className="w-full flex items-center gap-3 px-3 py-2 text-red-400 hover:bg-red-500/10 rounded-lg text-sm transition-colors"
+                      onClick={handleLogout}
+                      disabled={isLogoutLoading}
+                      className="w-full flex items-center gap-3 px-3 py-2 text-red-400 hover:bg-red-500/10 rounded-lg text-sm transition-colors disabled:opacity-50"
                     >
-                      <LogOut size={16} /> Sign Out
+                      {isLogoutLoading ? <Loader2 className="animate-spin" size={16} /> : <LogOut size={16} />} 
+                      Sign Out
                     </button>
                   </motion.div>
                 )}
               </AnimatePresence>
             </div>
           ) : (
-            /* LOGGED OUT STATE: AUTH BUTTONS */
+            /* --- LOGGED OUT: AUTH BUTTONS --- */
             <div className="flex items-center gap-3">
-              <Link to="/login" className="text-sm font-bold text-slate-300 hover:text-white transition-colors">
+              {/* <Link to="/login" className="text-sm font-bold text-slate-300 hover:text-white transition-colors">
                 Log In
-              </Link>
-              <Link to="/signup" className="px-5 py-2.5 bg-emerald-500 hover:bg-emerald-600 text-white text-sm font-bold rounded-xl shadow-lg shadow-emerald-500/20 transition-all hover:scale-105">
+              </Link> */}
+              <Link to="/signup" className="px-5 py-2.5 bg-emerald-500 hover:bg-emerald-600 text-white text-sm font-bold rounded-sm shadow-lg shadow-emerald-500/20 transition-all hover:scale-105">
                 Sign Up
               </Link>
             </div>
@@ -199,9 +197,6 @@ const Navbar = () => {
 
         {/* --- MOBILE TOGGLE --- */}
         <div className="lg:hidden flex items-center gap-4">
-          <button onClick={toggleTheme} className="text-slate-400">
-            {isDark ? <Moon size={20} /> : <Sun size={20} />}
-          </button>
           <button 
             onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
             className="text-white p-2 bg-slate-900 rounded-lg border border-slate-800"
@@ -238,27 +233,33 @@ const Navbar = () => {
 
               <div className="h-px bg-slate-800" />
 
-              {isLoggedIn ? (
+              {/* MOBILE AUTH STATE */}
+              {user && !isError ? (
                 <div className="space-y-4">
                   <div className="flex items-center gap-3">
-                    <div className="w-10 h-10 rounded-full bg-gradient-to-r from-emerald-400 to-cyan-500 flex items-center justify-center text-white font-bold">
-                      JD
+                    <div className="w-10 h-10 rounded-full bg-gradient-to-r from-emerald-400 to-cyan-500 flex items-center justify-center text-white font-bold uppercase">
+                      {user.name.slice(0, 2)}
                     </div>
                     <div>
-                      <p className="text-white font-bold">John Doe</p>
-                      <p className="text-slate-400 text-sm">john.doe@example.com</p>
+                      <p className="text-white font-bold">{user.name}</p>
+                      <p className="text-slate-400 text-sm truncate max-w-[200px]">{user.email}</p>
                     </div>
                   </div>
-                  <button className="w-full py-3 border border-slate-700 rounded-xl text-slate-300 flex items-center justify-center gap-2">
-                    <LogOut size={16} /> Log Out
+                  <button 
+                    onClick={handleLogout}
+                    disabled={isLogoutLoading}
+                    className="w-full py-3 border border-slate-700 rounded-xl text-slate-300 flex items-center justify-center gap-2"
+                  >
+                    {isLogoutLoading ? <Loader2 className="animate-spin" /> : <LogOut size={16} />} 
+                    Log Out
                   </button>
                 </div>
               ) : (
                 <div className="grid grid-cols-2 gap-4">
-                  <Link to="/login" className="py-3 text-center rounded-xl border border-slate-700 text-slate-300 font-bold" onClick={() => setIsMobileMenuOpen(false)}>
+                  {/* <Link to="/login" className="py-3 text-center rounded-xl border border-slate-700 text-slate-300 font-bold" onClick={() => setIsMobileMenuOpen(false)}>
                     Log In
-                  </Link>
-                  <Link to="/signup" className="py-3 text-center rounded-xl bg-emerald-500 text-white font-bold" onClick={() => setIsMobileMenuOpen(false)}>
+                  </Link> */}
+                  <Link to="/signup" className="py-3 text-center rounded-sm bg-emerald-500 text-white font-bold" onClick={() => setIsMobileMenuOpen(false)}>
                     Sign Up
                   </Link>
                 </div>
