@@ -1,22 +1,21 @@
 
 
-interface User {
-  id?: string;
-    name: string;
-    email: string;
-    phone?: string;
-    address?: string;
-    password: string;
-    profilePhoto?: string;
-    shortBio?: string; 
-    IsVerified?: boolean;
-    createdAt?: string | number | Date;
 
-  // add other user fields here
+export interface IUser {
+  _id: string;
+  name: string;
+  email: string;
+  phone?: string;
+  address?: string;
+  role: 'USER' | 'AGENT' | 'ADMIN';
+  profilePhoto?: string;
+  // ... other fields
 }
 
-export interface ProfileResponse {
-    data: {
-      data: User;
-    };
+// Matches the backend responseSender structure
+export interface IApiResponse<T> {
+  success: boolean;
+  statusCode: number;
+  message: string;
+  data: T;
 }

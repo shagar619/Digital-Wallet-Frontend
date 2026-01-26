@@ -1,17 +1,19 @@
-// import type { ProfileResponse } from "@/types/user.type";
-// import { baseApi } from "./baseApi";
-// import type { TransferResponse, WithdrawResponse } from "@/types/withdraw.type";
-// import type { AllWalletApiResponse, GetAllUserParams, TransactionApiResponse, UsersResponse } from "@/types/admin.type";
+import type { IApiResponse, IUser } from "@/types/user.type";
+import { baseApi } from "../baseApi";
 
-// const userApi = baseApi.injectEndpoints({
-//   endpoints: (builder) => ({
-//     GetMyProfile: builder.query<ProfileResponse, void>({
-//       query: () => ({
-//         url: "/user/my-profile",
-//         method: "GET",
-//       }),
-//       providesTags: ["User"],
-//     }),
+
+const userApi = baseApi.injectEndpoints({
+
+     endpoints: (builder) => ({
+
+     getMyProfile: builder.query<IApiResponse<IUser>, void>({
+     query: () => ({
+          url: "/user/my-profile", // Make sure this matches your backend route prefix
+          method: "GET",
+     }),
+     providesTags: ["User"],
+     }),
+
 //     UpdateMyProfile: builder.mutation<ProfileResponse, Record<string, string>>({
 //       query: (payload) => ({
 //         url: "/user/update-profile",
@@ -54,23 +56,26 @@
 //       }),
 //       invalidatesTags: ["User"],
 //     }),
-//     // getAllUser: builder.query<UsersResponse, { searchTerm?: string } | void>({
-//     //   query: (params) => ({
-//     //     url: "/user/all-users",
-//     //     method: "GET",
-//     //     body: params,
-//     //   }),
-//     //   providesTags: ["User"],
-//     // }),
+    // getAllUser: builder.query<UsersResponse, { searchTerm?: string } | void>({
+    //   query: (params) => ({
+    //     url: "/user/all-users",
+    //     method: "GET",
+    //     body: params,
+    //   }),
+    //   providesTags: ["User"],
+    // }),
 
-//     // /redux/api/userApi.ts
-//     // getAllUser: builder.query<UsersResponse, { page?: number; limit?: number; searchTerm?: string; email?: string; phone?: string }>({
-//     //   query: (params) => ({
-//     //     url: '/api/w1/user/all-users',
-//     //     method: 'GET',
-//     //     params, // <-- this attaches ?page=&limit=&email=&phone=&searchTerm=
-//     //   }),
-//     // }),
+    // /redux/api/userApi.ts
+    // getAllUser: builder.query<UsersResponse, { page?: number; limit?: number; searchTerm?: string; email?: string; phone?: string }>({
+    //   query: (params) => ({
+    //     url: '/api/w1/user/all-users',
+    //     method: 'GET',
+    //     params, // <-- this attaches ?page=&limit=&email=&phone=&searchTerm=
+    //   }),
+    // }),
+
+
+
 //     getAllUser: builder.query<UsersResponse, GetAllUserParams>({
 //       query: (params) => ({
 //         url: "/user/all-users",
@@ -79,15 +84,15 @@
 //       }),
 //     }),
 
-//   }),
-// });
+}),
+});
 
-// const {
-//   useGetMyProfileQuery,
-//   useUpdateMyProfileMutation,
-//   useGetYourTransQuery,
-//   useGetYourWalletQuery,
-//   useCreateWithdrawMutation,
-//   useCreateTransferMutation,
-//   useLazyGetAllUserQuery
-// } = userApi;
+export const {
+     useGetMyProfileQuery,
+     // useUpdateMyProfileMutation,
+     // useGetYourTransQuery,
+     // useGetYourWalletQuery,
+     // useCreateWithdrawMutation,
+     // useCreateTransferMutation,
+     // useLazyGetAllUserQuery
+} = userApi;
