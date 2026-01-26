@@ -1,8 +1,8 @@
 import Hero from "@/section/Hero";
-
 import { PartnersSection, SavingsSection, SecuritySection, } from "@/section/AdditionalFeatures";
 import Features from "@/section/Features";
 import Testimonials from "@/section/Testimonials";
+import EcosystemSection from "@/section/HomeExtraSections";
 
 
 const Home = () => {
@@ -20,6 +20,8 @@ const Home = () => {
         
         {/* 3. Deep Dive: A Specific User Benefit (Savings) */}
         <SavingsSection />
+
+        <EcosystemSection></EcosystemSection>
         
         {/* 4. Addressing Objections: Trust & Safety */}
         <SecuritySection />
