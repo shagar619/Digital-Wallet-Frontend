@@ -253,6 +253,10 @@ const Navbar = () => {
                       <p className="text-slate-400 text-sm truncate max-w-[200px]">{user.email}</p>
                     </div>
                   </div>
+                  {/* Mobile Dashboard Link */}
+                  <Link to={dashboardLink} onClick={() => setIsMobileMenuOpen(false)} className="w-full py-3 border border-slate-700 rounded-xl text-slate-300 flex items-center justify-center gap-2 hover:bg-slate-800 hover:text-emerald-400">
+                    <LayoutDashboard size={16} /> Dashboard
+                  </Link>
                   <button 
                     onClick={handleLogout}
                     disabled={isLogoutLoading}
