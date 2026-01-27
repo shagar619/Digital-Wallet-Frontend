@@ -22,6 +22,7 @@ const userApi = baseApi.injectEndpoints({
 //       }),
 //       invalidatesTags: ["User"],
 //     }),
+
 //     getYourTrans: builder.query<TransactionApiResponse, { page: number; limit: number; type?: string; startDate?: string; endDate?: string }>(
 //       {
 //         query: ({ page, limit, type, startDate, endDate }) => ({
@@ -40,6 +41,7 @@ const userApi = baseApi.injectEndpoints({
 //       }),
 //       providesTags: ["User"],
 //     }),
+
 //     createWithdraw: builder.mutation<WithdrawResponse, void>({
 //       query: (body) => ({
 //         url: "/wallet/withdraw",
@@ -48,6 +50,7 @@ const userApi = baseApi.injectEndpoints({
 //       }),
 //       invalidatesTags: ["User"],
 //     }),
+
 //     createTransfer: builder.mutation<TransferResponse, { receiver_id: string, amount: number }>({
 //       query: (body) => ({
 //         url: "/wallet/transfer-money",
@@ -56,6 +59,7 @@ const userApi = baseApi.injectEndpoints({
 //       }),
 //       invalidatesTags: ["User"],
 //     }),
+
     // getAllUser: builder.query<UsersResponse, { searchTerm?: string } | void>({
     //   query: (params) => ({
     //     url: "/user/all-users",

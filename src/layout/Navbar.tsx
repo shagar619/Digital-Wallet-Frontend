@@ -3,7 +3,7 @@ import { useState, useEffect } from 'react';
 import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { motion, AnimatePresence } from 'framer-motion';
 import logo from "../assets/digi-wallet.png";
-import { Menu, X, Sun, Moon, User, LogOut, Settings, ChevronDown, Loader2 } from 'lucide-react';
+import { Menu, X, Sun, Moon, User, LogOut, Settings, ChevronDown, Loader2, LayoutDashboard } from 'lucide-react';
 import { useGetMyProfileQuery } from '@/redux/api/userApi';
 import { useLogoutMutation } from '@/redux/api/authApi';
 import { toast } from 'sonner';
@@ -43,6 +43,7 @@ const Navbar = () => {
     try {
       await logoutUser(undefined).unwrap();
       toast.success("Logged out successfully");
+      setIsDropdownOpen(false);
       navigate('/login');
     } catch (error: any) {
       toast.error(`Logout failed: ${error?.data?.message || error.message}`);
@@ -63,6 +64,9 @@ const Navbar = () => {
     // In a real app, you would toggle a class on the document body here
     // document.documentElement.classList.toggle('dark');
   };
+
+  // Helper to determine role-based dashboard link
+  const dashboardLink = user?.role === 'ADMIN' ? '/admin/dashboard' : '/dashboard';
 
 
 
@@ -166,6 +170,10 @@ const Navbar = () => {
                     </Link>
                     <Link to="/settings" className="flex items-center gap-3 px-3 py-2 text-slate-300 hover:bg-slate-800 rounded-lg text-sm transition-colors">
                       <Settings size={16} /> Settings
+                    </Link>
+                    {/* 👇 NEW DASHBOARD LINK */}
+                    <Link to={dashboardLink} onClick={() => setIsDropdownOpen(false)} className="flex items-center gap-3 px-3 py-2 text-slate-300 hover:bg-slate-800 hover:text-emerald-400 rounded-lg text-sm transition-colors mb-1">
+                      <LayoutDashboard size={16} /> Dashboard
                     </Link>
                     
                     <div className="h-px bg-slate-800 my-2" />
