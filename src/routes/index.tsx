@@ -16,6 +16,8 @@ export const router = createBrowserRouter([
     Component: App,
     path: "/",
     errorElement: <ErrorPage />, // 👈 This catches route errors
+
+    // PUBLIC ROUTES
     children: [
       {
         Component: Home,

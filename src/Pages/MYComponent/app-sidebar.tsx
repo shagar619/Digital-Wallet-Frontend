@@ -28,8 +28,10 @@ import { useGetMyProfileQuery } from "@/redux/api/userApi";
 import { authApi, useLogoutMutation } from "@/redux/api/authApi";
 
 export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
+
   const { data: userData } = useGetMyProfileQuery(undefined);
   const location = useLocation();
+
   const [expandedGroups, setExpandedGroups] = React.useState<
     Record<string, boolean>
   >({});

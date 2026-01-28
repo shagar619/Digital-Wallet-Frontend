@@ -14,14 +14,14 @@ const userApi = baseApi.injectEndpoints({
      providesTags: ["User"],
      }),
 
-//     UpdateMyProfile: builder.mutation<ProfileResponse, Record<string, string>>({
-//       query: (payload) => ({
-//         url: "/user/update-profile",
-//         method: "PATCH",
-//         body: payload,
-//       }),
-//       invalidatesTags: ["User"],
-//     }),
+     // UpdateMyProfile: builder.mutation<ProfileResponse, Record<string, string>>({
+     // query: (payload) => ({
+     //      url: "/user/update-profile",
+     //      method: "PATCH",
+     //      body: payload,
+     // }),
+     // invalidatesTags: ["User"],
+     // }),
 
 //     getYourTrans: builder.query<TransactionApiResponse, { page: number; limit: number; type?: string; startDate?: string; endDate?: string }>(
 //       {
