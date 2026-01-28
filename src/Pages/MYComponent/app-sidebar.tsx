@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import * as React from "react";
 import {
   Sidebar,
@@ -13,8 +14,7 @@ import {
 } from "@/components/ui/sidebar";
 import { Link, useLocation } from "react-router";
 import { getSidebarItems } from "@/utils/getSidebarItems";
-import logo from "/public/logo.jpg"
-
+import logo from "../../../public/logo.png";
 import { FiChevronDown, FiBell, FiList } from "react-icons/fi";
 import { ModeToggle } from "@/layout/ModeToggler";
 import { Button } from "@/components/ui/button";
@@ -24,8 +24,8 @@ import { toast } from "react-toastify";
 import { handleApiError } from "@/utils/handleApiError";
 import type { TRole } from "@/types/auth.type";
 import { getIcon } from "@/utils/getIcon";
-import { useGetMyProfileQuery } from "@/redux/features/user/user.api";
-import { authApi, useLogoutUserMutation } from "@/redux/features/auth/auth.api";
+import { useGetMyProfileQuery } from "@/redux/api/userApi";
+import { authApi, useLogoutMutation } from "@/redux/api/authApi";
 
 export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
   const { data: userData } = useGetMyProfileQuery(undefined);
@@ -34,11 +34,11 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
     Record<string, boolean>
   >({});
 
-  const role = userData?.data?.data?.role;
+  const role = userData?.data?.role;
   const data = {
     navMain: getSidebarItems(role as TRole),
   };
-  const [logout] = useLogoutUserMutation();
+  const [logout] = useLogoutMutation();
   const dispatch = useDispatch();
 
   const handleLogout = async () => {
@@ -84,14 +84,14 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
       <div className="p-4 border-b border-gray-200 dark:border-gray-800">
         <div className="flex items-center space-x-3">
           <div className="w-10 h-10 rounded-full bg-pink-600 flex items-center justify-center text-white font-bold text-lg">
-            {userData?.data?.data?.name?.charAt(0) || "U"}
+            {userData?.data?.name?.charAt(0) || "U"}
           </div>
           <div className="flex-1 min-w-0">
             <p className="font-medium truncate">
-              {userData?.data?.data?.name || "User"}
+              {userData?.data?.name || "User"}
             </p>
             <p className="text-sm text-gray-500 dark:text-gray-400 truncate">
-              {userData?.data?.data?.role || "Member"}
+              {userData?.data?.role || "Member"}
             </p>
           </div>
           <button className="p-2 rounded-lg hover:bg-gray-200 dark:hover:bg-gray-800 transition-colors">
@@ -121,7 +121,7 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
               className={expandedGroups[group.title] ? "" : "hidden"}
             >
               <SidebarMenu>
-                {group.items.map((item) => (
+                {group.items.map((item: any) => (
                   <SidebarMenuItem key={item.title}>
                     <SidebarMenuButton
                       size="default"
