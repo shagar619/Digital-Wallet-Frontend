@@ -9,13 +9,23 @@ import Home from "@/Pages/Website/Home/Home.tsx";
 import Pricing from "@/Pages/Website/Pricing/Pricing";
 import Unauthorized from "@/Pages/MYComponent/Unauthorized";
 import ErrorPage from "@/Pages/MYComponent/ErrorPage";
-import { createBrowserRouter } from "react-router-dom";
+import { createBrowserRouter, Navigate } from "react-router-dom";
+import { withAuth } from "@/utils/withAuth";
+import DashboardLayout from "@/layout/DashboardLayout";
+import { role } from "@/constants/role";
+import type { TRole } from "@/types/auth.type";
+import { generateRoutes } from "@/utils/generateRoutes";
+import { adminSidebarItems } from "./adminSidebarItems";
+import { agentSidebarItems } from "./agentSidebarItems";
+import { userSidebarItems } from "./userSidebarItems";
 
 export const router = createBrowserRouter([
   {
     Component: App,
     path: "/",
     errorElement: <ErrorPage />, // 👈 This catches route errors
+
+    // PUBLIC ROUTES
     children: [
       {
         Component: Home,
@@ -52,39 +62,45 @@ export const router = createBrowserRouter([
     ],
   },
 
-  // {
-  //   Component: withAuth(DashboardLayout, role.admin as TRole),
-  //   path: "/admin/dashboard",
-  //   children: [
-  //     {
-  //       index: true,
-  //       element: <Navigate to="/admin/dashboard/quick-actions" />,
-  //     },
-  //     ...generateRoutes(adminSidebarItems),
-  //   ],
-  // },
+  // Dashboard Routes - Protected Routes
 
-  // {
-  //   Component: withAuth(DashboardLayout, role.agent as TRole),
-  //   path: "/agent/dashboard",
-  //   children: [
-  //     {
-  //       index: true,
-  //       element: <Navigate to="/agent/dashboard/quick-actions" />,
-  //     },
-  //     ...generateRoutes(agentSidebarItems),
-  //   ],
-  // },
+  // Admin Routes
+  {
+    Component: withAuth(DashboardLayout, role.admin as TRole),
+    path: "/admin/dashboard",
+    children: [
+      {
+        index: true,
+        element: <Navigate to="/admin/dashboard/quick-actions" />,
+      },
+      ...generateRoutes(adminSidebarItems),
+    ],
+  },
 
-  // {
-  //   Component: withAuth(DashboardLayout, role.user as TRole),
-  //   path: "/user/dashboard",
-  //   children: [
-  //     { index: true, element: <Navigate to="/user/dashboard/quick-actions" /> },
-  //     ...generateRoutes(userSidebarItems),
-  //   ],
-  // },
+  // Agent Routes
+  {
+    Component: withAuth(DashboardLayout, role.agent as TRole),
+    path: "/agent/dashboard",
+    children: [
+      {
+        index: true,
+        element: <Navigate to="/agent/dashboard/quick-actions" />,
+      },
+      ...generateRoutes(agentSidebarItems),
+    ],
+  },
 
+  // User Routes
+  {
+    Component: withAuth(DashboardLayout, role.user as TRole),
+    path: "/user/dashboard",
+    children: [
+      { index: true, element: <Navigate to="/user/dashboard/quick-actions" /> },
+      ...generateRoutes(userSidebarItems),
+    ],
+  },
+
+  // Unauthorized Route
   {
     Component: Unauthorized,
     path: "/unauthorized",

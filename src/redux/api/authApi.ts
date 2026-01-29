@@ -25,6 +25,8 @@ export const authApi = baseApi.injectEndpoints({
           method: "POST",
           data: userInfo,
      }),
+     // 👇 THIS IS CRITICAL. It forces "getMyProfile" in Navbar to re-run.
+     invalidatesTags: ["User"],
      }),
 
      // Logout User
@@ -42,7 +44,7 @@ export const authApi = baseApi.injectEndpoints({
           console.error("Logout failed", err);
      }
      },
-     invalidatesTags: ["Auth"],
+     invalidatesTags: ["User"],
      }),
 }),
 });
