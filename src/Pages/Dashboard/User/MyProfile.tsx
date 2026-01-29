@@ -202,7 +202,7 @@
 const MyProfile = () => {
   return (
     <div>
-      This is a placeholder for MyProfile component.
+      This is the My Profile component.
     </div>
   );
 };

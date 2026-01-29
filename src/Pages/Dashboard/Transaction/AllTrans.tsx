@@ -97,7 +97,7 @@
 const AllTrans = () => {
   return (
     <div>
-      This is a placeholder for the AllTrans component
+      This is the All Trans component
     </div>
   );
 };
