@@ -7,6 +7,7 @@ import { Menu, X, Sun, Moon, User, LogOut, Settings, ChevronDown, Loader2, Layou
 import { useGetMyProfileQuery } from '@/redux/api/userApi';
 import { useLogoutMutation } from '@/redux/api/authApi';
 import { toast } from 'sonner';
+import { getDashboardPath } from '@/utils/getDashboardPath';
 
 // --- CONFIGURATION ---
 const navigationLinks = [
@@ -66,7 +67,7 @@ const Navbar = () => {
   };
 
   // Helper to determine role-based dashboard link
-  const dashboardLink = user?.role === 'ADMIN' ? '/admin/dashboard' : '/dashboard';
+  // const dashboardLink = user?.role === 'ADMIN' ? '/admin/dashboard' : '/dashboard';
 
 
 
@@ -171,8 +172,8 @@ const Navbar = () => {
                     <Link to="/settings" className="flex items-center gap-3 px-3 py-2 text-slate-300 hover:bg-slate-800 rounded-lg text-sm transition-colors">
                       <Settings size={16} /> Settings
                     </Link>
-                    {/* 👇 NEW DASHBOARD LINK */}
-                    <Link to={dashboardLink} onClick={() => setIsDropdownOpen(false)} className="flex items-center gap-3 px-3 py-2 text-slate-300 hover:bg-slate-800 hover:text-emerald-400 rounded-lg text-sm transition-colors mb-1">
+                    {/* 👇 NEW DASHBOARD LINK {getDashboardPath(userData.role)} */}
+                    <Link to={getDashboardPath(user.role)} onClick={() => setIsDropdownOpen(false)} className="flex items-center gap-3 px-3 py-2 text-slate-300 hover:bg-slate-800 hover:text-emerald-400 rounded-lg text-sm transition-colors mb-1">
                       <LayoutDashboard size={16} /> Dashboard
                     </Link>
                     
@@ -254,7 +255,7 @@ const Navbar = () => {
                     </div>
                   </div>
                   {/* Mobile Dashboard Link */}
-                  <Link to={dashboardLink} onClick={() => setIsMobileMenuOpen(false)} className="w-full py-3 border border-slate-700 rounded-xl text-slate-300 flex items-center justify-center gap-2 hover:bg-slate-800 hover:text-emerald-400">
+                  <Link to={getDashboardPath(user.role)} onClick={() => setIsMobileMenuOpen(false)} className="w-full py-3 border border-slate-700 rounded-xl text-slate-300 flex items-center justify-center gap-2 hover:bg-slate-800 hover:text-emerald-400">
                     <LayoutDashboard size={16} /> Dashboard
                   </Link>
                   <button 
