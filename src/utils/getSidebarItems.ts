@@ -1,5 +1,6 @@
 import { role } from "@/constants/role";
 import { adminSidebarItems } from "@/routes/adminSidebarItems";
+import { agentSidebarItems } from "@/routes/agentSidebarItems";
 import type { TRole } from "@/types/auth.type";
 
 
