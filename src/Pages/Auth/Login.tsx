@@ -2,7 +2,10 @@ import { useState } from 'react';
 import { motion } from 'framer-motion';
 import { 
   Mail, Lock, Eye, EyeOff, ArrowRight, 
-  Loader2, Wallet, ShieldCheck, Check 
+  Loader2, Wallet, ShieldCheck, Check, 
+  UserCog,
+  UserCheck,
+  Users
 } from 'lucide-react';
 import { Link, useNavigate } from 'react-router-dom'; // Assuming react-router usage
 import { useLoginMutation } from '@/redux/api/authApi';
@@ -24,7 +27,21 @@ const Login = () => {
   // Redux Hook
   const [loginUser, { isLoading }] = useLoginMutation();
 
-  const { register, handleSubmit, formState: { errors } } = useForm<ILoginInput>();
+  const { register, handleSubmit, setValue, formState: { errors } } = useForm<ILoginInput>();
+
+  // --- AUTO FILL FUNCTION ---
+  const handleAutoFill = (role: 'ADMIN' | 'AGENT' | 'USER') => {
+    const credentials = {
+      ADMIN: { email: 'testadmin@gmail.com', password: '123AAaa$' },
+      AGENT: { email: 'testagent@gmail.com', password: '123AAaa$' },
+      USER:  { email: 'testuser@gmail.com',  password: '123AAaa$' }
+    };
+
+    const creds = credentials[role];
+    setValue('email', creds.email);
+    setValue('password', creds.password);
+    toast.info(`Auto-filled ${role} credentials`);
+  };
 
 
   const onSubmit: SubmitHandler<ILoginInput> = async (data) => {
@@ -118,6 +135,45 @@ const Login = () => {
               <h1 className="text-3xl font-bold text-white mb-2">Welcome Back</h1>
               <p className="text-slate-400">Please enter your details to sign in.</p>
             </div>
+
+
+            
+
+            {/* --- AUTO FILL BUTTONS (TESTING ONLY) --- */}
+            <div className="mb-8 p-4 bg-slate-950/50 rounded-xl border border-slate-800/50">
+              <p className="text-xs text-slate-500 uppercase font-bold mb-3 text-center tracking-wider">Quick Login (Testing)</p>
+              <div className="grid grid-cols-3 gap-2">
+                <button 
+                  type="button" 
+                  onClick={() => handleAutoFill('ADMIN')}
+                  className="flex flex-col items-center gap-1 p-2 rounded-lg bg-slate-900 border border-slate-800 hover:border-emerald-500/50 hover:bg-slate-800 transition-all group"
+                >
+                  <UserCog size={16} className="text-purple-400 group-hover:scale-110 transition-transform" />
+                  <span className="text-[10px] font-medium text-slate-400 group-hover:text-white">Admin</span>
+                </button>
+                
+                <button 
+                  type="button" 
+                  onClick={() => handleAutoFill('AGENT')}
+                  className="flex flex-col items-center gap-1 p-2 rounded-lg bg-slate-900 border border-slate-800 hover:border-emerald-500/50 hover:bg-slate-800 transition-all group"
+                >
+                  <UserCheck size={16} className="text-blue-400 group-hover:scale-110 transition-transform" />
+                  <span className="text-[10px] font-medium text-slate-400 group-hover:text-white">Agent</span>
+                </button>
+                
+                <button 
+                  type="button" 
+                  onClick={() => handleAutoFill('USER')}
+                  className="flex flex-col items-center gap-1 p-2 rounded-lg bg-slate-900 border border-slate-800 hover:border-emerald-500/50 hover:bg-slate-800 transition-all group"
+                >
+                  <Users size={16} className="text-emerald-400 group-hover:scale-110 transition-transform" />
+                  <span className="text-[10px] font-medium text-slate-400 group-hover:text-white">User</span>
+                </button>
+              </div>
+            </div>
+
+
+
 
             {/* Social Logins */}
             <div className="grid grid-cols-2 gap-4 mb-8">
