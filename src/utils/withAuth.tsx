@@ -23,4 +23,3 @@ export const withAuth = (Component: ComponentType, requiredRole?: TRole) => {
     return <Component />;
   };
 };
-

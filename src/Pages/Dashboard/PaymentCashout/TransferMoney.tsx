@@ -105,7 +105,7 @@
 const TransferMoney = () => {
   return (
     <div>
-      This is Transfer Money Page
+      This is Transfer Money Page here
     </div>
   );
 };
