@@ -1,12 +1,31 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
+// import type { ComponentType } from "react";
+
+
+// export interface ISidebarItem {
+//   title: string;
+//   items: {
+//     icon: any;
+//     title: string;
+//     url: string;
+//     component: ComponentType;
+//   }[];
+// }
+
+
+
+
+
+
+import type { LucideIcon } from "lucide-react";
 import type { ComponentType } from "react";
 
 export interface ISidebarItem {
   title: string;
   items: {
-    icon: any;
     title: string;
     url: string;
     component: ComponentType;
+    icon: LucideIcon; // Changed from string to LucideIcon
   }[];
 }
