@@ -240,7 +240,7 @@ import { getSidebarItems } from "@/utils/getSidebarItems";
 import type { TRole } from "@/types/auth.type";
 import { 
   ChevronsUpDown, LogOut, Settings, 
-  BadgeCheck, Bell, Sparkles, Wallet 
+  BadgeCheck, Bell, Sparkles 
 } from "lucide-react";
 import logo from "./../../assets/digi-wallet.png";
 
@@ -277,8 +277,7 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
           <SidebarMenuItem>
             <SidebarMenuButton size="lg" asChild>
               <Link to="/">
-                <div >
-                  {/* <Wallet className="size-4 text-white" /> */}
+                <div>
                   <img src={logo} alt="Gigi Wallet Logo" className="w-8 h-8 rounded-full" />
                 </div>
                 <div className="grid flex-1 text-left text-sm leading-tight">

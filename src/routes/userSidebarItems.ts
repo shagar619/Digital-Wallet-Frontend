@@ -1,65 +1,147 @@
-import TransferMoney from "@/Pages/Dashboard/PaymentCashout/TransferMoney";
-import WithdrawAdd from "@/Pages/Dashboard/PaymentCashout/WithdrawAdd";
-import AllTrans from "@/Pages/Dashboard/Transaction/AllTrans";
-import MyProfile from "@/Pages/Dashboard/User/MyProfile";
-import AllWallet from "@/Pages/Dashboard/Wallet/AllWallet";
-import type { ISidebarItem } from "@/types/sidebar.type";
+// import TransferMoney from "@/Pages/Dashboard/PaymentCashout/TransferMoney";
+// import WithdrawAdd from "@/Pages/Dashboard/PaymentCashout/WithdrawAdd";
+// import AllTrans from "@/Pages/Dashboard/Transaction/AllTrans";
+// import MyProfile from "@/Pages/Dashboard/User/MyProfile";
+// import AllWallet from "@/Pages/Dashboard/Wallet/AllWallet";
+// import type { ISidebarItem } from "@/types/sidebar.type";
+// import { lazy } from "react";
+
+
+
+// const Overview = lazy(() => import("@/Pages/Dashboard/Overview/Overview"));
+
+// export const userSidebarItems: ISidebarItem[] = [
+// {
+//      title: "Dashboard",
+//      items: [
+//      {
+//           title: "Quick Actions",
+//           url: "/user/dashboard/quick-actions",
+//           component: Overview,
+//           icon: "FiBell",
+//      },
+//      {
+//           title: "My Profile",
+//           url: "/user/dashboard/my-profile",
+//           component: MyProfile,
+//           icon: "FiUser",
+//      },
+// ],
+// },
+// {
+//      title: "Transactions",
+//      items: [
+//      {
+//           title: "Your Transaction History",
+//           url: "/user/dashboard/your-trans",
+//           component: AllTrans,
+//           icon: "FiList",
+//      },
+// ],
+// },
+// {
+//      title: "Wallet",
+//      items: [
+//      {
+//           title: "Your Wallet",
+//           url: "/user/dashboard/my-wallet",
+//           component: AllWallet,
+//           icon: "FiDollarSign",
+//      },
+//      {
+//           title: "Withdraw Money",
+//           url: "/user/dashboard/wallet/withdraw",
+//           component: WithdrawAdd,
+//           icon: "FiArrowDown",
+//      },
+//      {
+//           title: "Transfer Money",
+//           url: "/user/dashboard/wallet/transfer",
+//           component: TransferMoney,
+//           icon: "FiSend",
+//      },
+// ],
+// },
+// ];;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 import { lazy } from "react";
+import type { ISidebarItem } from "@/types/sidebar.type";
+import { 
+     LayoutDashboard, User, History, 
+     Wallet, ArrowDownLeft, Send 
+} from "lucide-react";
 
-
-
+// Lazy load components
 const Overview = lazy(() => import("@/Pages/Dashboard/Overview/Overview"));
+const MyProfile = lazy(() => import("@/Pages/Dashboard/User/MyProfile"));
+const AllTrans = lazy(() => import("@/Pages/Dashboard/Transaction/AllTrans"));
+const AllWallet = lazy(() => import("@/Pages/Dashboard/Wallet/AllWallet"));
+const WithdrawAdd = lazy(() => import("@/Pages/Dashboard/PaymentCashout/WithdrawAdd"));
+const TransferMoney = lazy(() => import("@/Pages/Dashboard/PaymentCashout/TransferMoney"));
 
 export const userSidebarItems: ISidebarItem[] = [
 {
      title: "Dashboard",
      items: [
      {
-          title: "Quick Actions",
+          title: "Overview",
           url: "/user/dashboard/quick-actions",
           component: Overview,
-          icon: "FiBell",
+          icon: LayoutDashboard,
      },
      {
           title: "My Profile",
           url: "/user/dashboard/my-profile",
           component: MyProfile,
-          icon: "FiUser",
+          icon: User,
      },
 ],
 },
 {
-     title: "Transactions",
+     title: "Activity",
      items: [
      {
-          title: "Your Transaction History",
+          title: "Transactions",
           url: "/user/dashboard/your-trans",
           component: AllTrans,
-          icon: "FiList",
+          icon: History,
      },
 ],
 },
 {
-     title: "Wallet",
+     title: "Payments",
      items: [
      {
-          title: "Your Wallet",
+          title: "My Wallet",
           url: "/user/dashboard/my-wallet",
           component: AllWallet,
-          icon: "FiDollarSign",
+          icon: Wallet,
      },
      {
-          title: "Withdraw Money",
+          title: "Withdraw",
           url: "/user/dashboard/wallet/withdraw",
           component: WithdrawAdd,
-          icon: "FiArrowDown",
+          icon: ArrowDownLeft,
      },
      {
-          title: "Transfer Money",
+          title: "Send Money",
           url: "/user/dashboard/wallet/transfer",
           component: TransferMoney,
-          icon: "FiSend",
+          icon: Send,
      },
 ],
 },
-];;
+];
