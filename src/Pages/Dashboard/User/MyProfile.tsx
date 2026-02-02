@@ -1,209 +1,113 @@
-// import { useState } from "react";
-// import { toast } from "react-toastify";
-// import { handleApiError } from "@/utils/handleApiError";
-// import { ProfileSkeleton } from "@/Pages/MYComponent/ProfileSkeleton";
-// import MyProfileUi from "./MyProfileUi";
-// import { useGetMyProfileQuery, useUpdateMyProfileMutation } from "@/redux/features/user/user.api";
+/* eslint-disable @typescript-eslint/no-explicit-any */
+import { useState, useEffect } from "react";
+import { toast } from "sonner"; // Using sonner for consistent toasts
+import { useForm } from "react-hook-form";
+import { zodResolver } from "@hookform/resolvers/zod";
+import { z } from "zod";
+import { useGetMyProfileQuery, useUpdateMyProfileMutation } from "@/redux/api/userApi";
+import MyProfileUi from "./MyProfileUi";
+import { Loader2 } from "lucide-react";
 
-// const MyProfile = () => {
-//   const { data, isFetching, isError } = useGetMyProfileQuery(undefined);
-//   const [updateProfile, { isLoading: isUpdating }] = useUpdateMyProfileMutation();
-//   const [isEditing, setIsEditing] = useState(false);
-//   const [showPassword, setShowPassword] = useState({
-//     newPassword: false,
-//     confirmPassword: false
-//   });
+// --- VALIDATION SCHEMA ---
+const profileSchema = z.object({
+  name: z.string().min(2, "Name must be at least 2 chars"),
+  phone: z.string().optional(),
+  address: z.string().optional(),
+  password: z.string().optional(),
+  confirmPassword: z.string().optional(),
+}).refine((data) => {
+  if (data.password && data.password !== data.confirmPassword) {
+    return false;
+  }
+  return true;
+}, {
+  message: "Passwords do not match",
+  path: ["confirmPassword"],
+});
 
-//   // Using optional chaining to safely access data
-//   const myProfile = data?.data?.data;
-
-//   const [form, setForm] = useState({
-//     name: "",
-//     phone: "",
-//     address: "",
-//     newPassword: "",
-//     confirmPassword: "",
-//   });
-
-//   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-//     setForm({ ...form, [e.target.name]: e.target.value });
-//   };
-
-//   const togglePasswordVisibility = (field: keyof typeof showPassword) => {
-//     setShowPassword(prev => ({ ...prev, [field]: !prev[field] }));
-//   };
-
-//   if (isFetching) {
-//     return <ProfileSkeleton />;
-//   }
-
-//   if (isError || !myProfile) {
-//     return (
-//       <div className="flex justify-center items-center min-h-screen p-6 bg-background">
-//         <div className="w-full max-w-2xl shadow-2xl border-2 border-destructive/50 bg-card/80 backdrop-blur-sm rounded-lg p-6">
-//           <h2 className="text-destructive flex items-center gap-2 text-xl font-semibold">
-//             Error
-//           </h2>
-//           <p className="text-muted-foreground mt-2">
-//             Could not load profile. Please try again later.
-//           </p>
-//         </div>
-//       </div>
-//     );
-//   }
-
-//   const { name, email, role, phone, address, is_verified, createdAt } = myProfile;
-
-//   const initial = `${name ? name.charAt(0) : ""}`.toUpperCase();
-//   const formattedCreatedAt = new Date(
-//     createdAt ?? Date.now()
-//   ).toLocaleDateString("en-US", {
-//     year: "numeric",
-//     month: "long",
-//     day: "numeric",
-//   });
-
-//   const handleEditClick = () => {
-//     setIsEditing(true);
-//     setForm({
-//       name,
-//       phone: phone || "",
-//       address: address || "",
-//       newPassword: "",
-//       confirmPassword: "",
-//     });
-//   };
-
-//   const handleSubmit = async (e: React.FormEvent) => {
-//     e.preventDefault();
-
-//     if (form.newPassword && form.newPassword !== form.confirmPassword) {
-//       toast.error("New password and confirm password do not match!");
-//       return;
-//     }
-
-//     const payload: Record<string, string> = {};
-//     if (form.name && form.name !== name) payload.name = form.name;
-//     if (form.phone !== phone) payload.phone = form.phone;
-//     if (form.address !== address) payload.address = form.address;
-//     if (form.newPassword) payload.password = form.newPassword;
-
-//     if (Object.keys(payload).length === 0) {
-//       toast.info("No changes detected");
-//       setIsEditing(false);
-//       return;
-//     }
-
-//     try {
-//       await updateProfile(payload).unwrap();
-//       toast.success("Profile updated successfully!");
-//       setIsEditing(false);
-//     } catch (error) {
-//       handleApiError(error);
-//     }
-//   };
-
-//   // Profile info fields for display mode
-//   const profileInfo = [
-//     {
-//       label: "Phone",
-//       value: phone || "Not provided",
-//       colSpan: "sm:col-span-1"
-//     },
-//     {
-//       label: "Address",
-//       value: address || "Not provided",
-//       colSpan: "sm:col-span-1"
-//     },
-//     {
-//       label: "Joined",
-//       value: formattedCreatedAt,
-//       colSpan: "sm:col-span-1"
-//     },
-//     {
-//       label: "Status",
-//       value: is_verified ? "Verified" : "Unverified",
-//       colSpan: "sm:col-span-1",
-//       badge: true
-//     }
-//   ];
-
-//   // Form fields for edit mode
-//   const formFields = [
-//     {
-//       name: "name",
-//       placeholder: "Full Name",
-//       type: "text",
-//       value: form.name
-//     },
-//     {
-//       name: "phone",
-//       placeholder: "Phone",
-//       type: "text",
-//       value: form.phone
-//     },
-//     {
-//       name: "address",
-//       placeholder: "Address",
-//       type: "text",
-//       value: form.address
-//     },
-//     {
-//       name: "newPassword",
-//       placeholder: "New Password",
-//       type: showPassword.newPassword ? "text" : "password",
-//       value: form.newPassword,
-//       hasEye: true
-//     },
-//     {
-//       name: "confirmPassword",
-//       placeholder: "Confirm Password",
-//       type: showPassword.confirmPassword ? "text" : "password",
-//       value: form.confirmPassword,
-//       hasEye: true
-//     }
-//   ];
-
-//   return (
-//     <MyProfileUi
-//       myProfile={myProfile}
-//       isEditing={isEditing}
-//       isUpdating={isUpdating}
-//       form={form}
-//       showPassword={showPassword}
-//       profileInfo={profileInfo}
-//       formFields={formFields}
-//       initial={initial}
-//       name={name}
-//       email={email}
-//       role={role}
-//       is_verified={is_verified}
-//       onEditClick={handleEditClick}
-//       onSubmit={handleSubmit}
-//       onChange={handleChange}
-//       onTogglePasswordVisibility={togglePasswordVisibility}
-//       onCancelEdit={() => setIsEditing(false)}
-//     />
-//   );
-// };
-
-// export default MyProfile;
-
-
-
-
-
-
-
-
+type ProfileFormValues = z.infer<typeof profileSchema>;
 
 
 
 const MyProfile = () => {
+
+  const { data: profileData, isLoading, isError } = useGetMyProfileQuery(undefined);
+  const [updateProfile, { isLoading: isUpdating }] = useUpdateMyProfileMutation();
+  const [isEditing, setIsEditing] = useState(false);
+
+  const user = profileData?.data;
+
+  // React Hook Form Setup
+  const form = useForm<ProfileFormValues>({
+    resolver: zodResolver(profileSchema),
+    defaultValues: {
+      name: "",
+      phone: "",
+      address: "",
+      password: "",
+      confirmPassword: "",
+    },
+  });
+
+  // Populate form when data loads
+  useEffect(() => {
+    if (user) {
+      form.reset({
+        name: user.name,
+        phone: user.phone || "",
+        address: user.address || "",
+        password: "",
+        confirmPassword: "",
+      });
+    }
+  }, [user, form]);
+
+  const onSubmit = async (values: ProfileFormValues) => {
+    if (!user) return;
+
+    // Filter out empty fields and only send what changed (optional optimization)
+    const payload: any = { _id: user._id, name: values.name, phone: values.phone, address: values.address };
+    
+    // Only add password if the user actually typed one
+    if (values.password && values.password.length > 0) {
+      payload.password = values.password;
+    }
+
+    try {
+      const res = await updateProfile(payload).unwrap();
+      if (res.success) {
+        toast.success("Profile updated successfully");
+        setIsEditing(false);
+        form.resetField("password");
+        form.resetField("confirmPassword");
+      }
+    } catch (err: any) {
+      console.log("Update profile error:", err);
+      toast.error(err.data?.message || "Failed to update profile");
+    }
+  };
+
+  if (isLoading) {
+    return (
+      <div className="flex h-[80vh] items-center justify-center">
+        <Loader2 className="h-10 w-10 animate-spin text-emerald-500" />
+      </div>
+    );
+  }
+
+  if (isError || !user) {
+    return <div className="text-center text-red-400 mt-10">Failed to load profile.</div>;
+  }
+
   return (
-    <div>
-      This is the My Profile component.
-    </div>
+    <MyProfileUi 
+      user={user}
+      form={form}
+      isEditing={isEditing}
+      setIsEditing={setIsEditing}
+      isUpdating={isUpdating}
+      onSubmit={onSubmit}
+    />
   );
 };
 

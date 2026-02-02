@@ -123,6 +123,7 @@ import {
   LayoutDashboard, User, Users, UserCheck, 
   FileText, DollarSign, Wallet 
 } from "lucide-react";
+import MyProfile from "@/Pages/Dashboard/User/MyProfile";
 
 // Lazy load components
 const Overview = lazy(() => import("@/Pages/Dashboard/Overview/Overview"));
@@ -142,7 +143,7 @@ export const adminSidebarItems: ISidebarItem[] = [
       {
         title: "My Profile",
         url: "/admin/dashboard/my-profile",
-        component: Overview, // Replace with actual component
+        component: MyProfile,
         icon: User,
       },
     ],

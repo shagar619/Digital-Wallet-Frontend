@@ -11,7 +11,7 @@ import { store } from "./redux/store";
 createRoot(document.getElementById("root")!).render(
   <StrictMode>
     <ReduxProvider store={store}>
-        <ThemeProvider defaultTheme="dark" storageKey="vite-ui-theme">
+        <ThemeProvider defaultTheme="light" storageKey="vite-ui-theme">
           <ToastContainer
             position="top-center" // bottom to center
             autoClose={3000} // auto close in 3 seconds

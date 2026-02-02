@@ -9,6 +9,10 @@ export interface IUser {
   address?: string;
   role: 'USER' | 'AGENT' | 'ADMIN';
   profilePhoto?: string;
+  IsVerified?: boolean;
+  IsActive?: "ACTIVE" | "INACTIVE" | "BLOCKED";
+  createdAt?: string | number | Date;
+  avatarUrl?: string;
   // ... other fields
 }
 
