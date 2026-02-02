@@ -7,11 +7,13 @@
 //   UsersResponse,
 //   WalletApiResponse,
 // } from "@/types/admin.type";
-// import { baseApi } from "./baseApi";
+// import { baseApi } from "../baseApi";
 
-// const adminApi = baseApi.injectEndpoints({
-//   endpoints: (builder) => ({
-//     // redux/api/userApi.ts
+
+// export const adminApi = baseApi.injectEndpoints({
+
+//      endpoints: (builder) => ({
+//      // redux/api/userApi.ts
 //     getAllUser: builder.query<UsersResponse, { searchTerm?: string } | void>({
 //       query: () => ({
 //         url: "/user/all-users",
@@ -80,13 +82,68 @@
 //   }),
 // });
 
-// const {
-//   useGetAllUserQuery,
-//   useGetAllAgentQuery,
-//   useGetAllTransQuery,
-//   useGetAllCommissionQuery,
-//   useGetAllWalletQuery,
-//   useCreateBlockWalletMutation,
-//   useUpdateUserRoleStatusMutation,
-//   useGetCapitalWalletQuery
-// } = adminApi;
+
+
+
+
+
+
+
+
+
+
+import type { IApiResponse, IUser } from "@/types/user.type";
+import { baseApi } from "../baseApi";
+
+
+
+
+
+interface IQueryParam {
+     searchTerm?: string;
+     page?: number;
+     limit?: number;
+}
+
+export const adminApi = baseApi.injectEndpoints({
+
+     endpoints: (builder) => ({
+
+     getAllUsers: builder.query<IApiResponse<IUser[]>, IQueryParam>({
+     query: (params) => ({
+          url: "/user/all-users",
+          method: "GET",
+          params: params, // Automatically converts object to query string
+     }),
+     providesTags: ["User"],
+     }),
+
+     getAllAgents: builder.query<IApiResponse<IUser[]>, IQueryParam>({
+     query: (params) => ({
+          url: "/user/all-agents",
+          method: "GET",
+          params: params,
+     }),
+     providesTags: ["Agent"],
+     }),
+
+     // Admin Update Status (Moved here as it's an admin action)
+     updateUserStatus: builder.mutation<IApiResponse<IUser>, { id: string; data: Partial<IUser> }>({
+     query: ({ id, data }) => ({
+          url: `/user/${id}`,
+          method: "PATCH",
+          data: data,
+     }),
+     invalidatesTags: ["User", "Agent"],
+     }),
+
+}),
+});
+
+
+export const { 
+     useGetAllUsersQuery, 
+     useGetAllAgentsQuery,
+     useUpdateUserStatusMutation
+} = adminApi;
+
