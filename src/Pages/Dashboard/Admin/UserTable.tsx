@@ -151,11 +151,11 @@ export const UserTable = ({
                     <Button variant="ghost" className="h-8 w-8 p-0"><MoreHorizontal className="h-4 w-4" /></Button>
                     </DropdownMenuTrigger>
                     <DropdownMenuContent align="end">
-                    <DropdownMenuItem onClick={() => handleStatusChange(user._id, user.IsActive)}>
+                    <DropdownMenuItem onClick={() => handleStatusChange(user._id, user.IsActive || "INACTIVE")}>
                          {user.IsActive === "ACTIVE" ? <ShieldAlert className="mr-2 h-4 w-4 text-red-500" /> : <Shield className="mr-2 h-4 w-4 text-green-500" />}
-                         {user.IsActive === "ACTIVE" ? "Block" : "Unblock"}
+                         {user.IsActive === "ACTIVE" ? "BLOCK" : "INACTIVE"}
                     </DropdownMenuItem>
-                    <DropdownMenuItem onClick={() => handleVerificationChange(user._id, user.IsVerified)}>
+                    <DropdownMenuItem onClick={() => handleVerificationChange(user._id, user.IsVerified || false)}>
                     <CheckCircle2 className="mr-2 h-4 w-4" /> Toggle Verify
                     </DropdownMenuItem>
                     </DropdownMenuContent>

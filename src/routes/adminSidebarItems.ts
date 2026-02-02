@@ -124,10 +124,10 @@ import {
   FileText, DollarSign, Wallet 
 } from "lucide-react";
 import MyProfile from "@/Pages/Dashboard/User/MyProfile";
+import AllUsers from "@/Pages/Dashboard/Admin/AllUsers";
 
 // Lazy load components
 const Overview = lazy(() => import("@/Pages/Dashboard/Overview/Overview"));
-const AllUsers = lazy(() => import("@/Pages/Dashboard/User/AllUsers"));
 // ... import others
 
 export const adminSidebarItems: ISidebarItem[] = [

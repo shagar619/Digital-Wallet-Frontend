@@ -1,5 +1,13 @@
 
 
+// Add IMeta interface
+export interface IMeta {
+  page: number;
+  limit: number;
+  total: number;
+  totalPage: number;
+}
+
 
 export interface IUser {
   _id: string;
@@ -21,5 +29,6 @@ export interface IApiResponse<T> {
   success: boolean;
   statusCode: number;
   message: string;
+  meta?: IMeta; 
   data: T;
 }

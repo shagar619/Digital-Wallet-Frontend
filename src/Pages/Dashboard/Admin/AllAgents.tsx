@@ -1,16 +1,17 @@
-import { useGetAllUsersQuery } from "@/redux/api/adminApi";
 import { useState } from "react";
 import { UserTable } from "./UserTable";
+import { useGetAllAgentsQuery } from "@/redux/api/adminApi";
 
 
-const AllUsers = () => {
+
+
+const AllAgents = () => {
 
      const [page, setPage] = useState(1);
-     const [limit] = useState(10); // You can make this dynamic if you want
+     const [limit] = useState(10); 
      const [searchTerm, setSearchTerm] = useState("");
 
-     // Pass dynamic params to the query hook
-     const { data, isLoading } = useGetAllUsersQuery({ 
+     const { data, isLoading } = useGetAllAgentsQuery({ 
           page, 
           limit, 
           searchTerm 
@@ -20,13 +21,13 @@ const AllUsers = () => {
      return (
      <div className="p-6 space-y-6">
      <UserTable 
-          title="All Users" 
+          title="All Agents" 
           data={data?.data} 
-          meta={data?.meta} // Pass meta for pagination logic
+          meta={data?.meta}
           isLoading={isLoading} 
           onSearch={(term) => {
                setSearchTerm(term);
-               setPage(1); // Reset to page 1 on new search
+               setPage(1);
           }}
           onPageChange={(newPage) => setPage(newPage)}
      />
@@ -34,4 +35,4 @@ const AllUsers = () => {
 );
 };
 
-export default AllUsers;
+export default AllAgents;
