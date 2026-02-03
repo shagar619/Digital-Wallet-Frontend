@@ -133,7 +133,7 @@ export const UserTable = ({
      </div>
 
      {/* TABLE */}
-     <div className="rounded-xl border bg-card text-card-foreground shadow-sm overflow-hidden">
+     <div className="rounded-sm border bg-card text-card-foreground shadow-sm overflow-hidden">
           {isLoading ? (
      <div className="h-64 flex items-center justify-center">
           <Loader2 className="h-8 w-8 animate-spin text-emerald-500" />
