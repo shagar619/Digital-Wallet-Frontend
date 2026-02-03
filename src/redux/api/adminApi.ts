@@ -137,6 +137,15 @@ export const adminApi = baseApi.injectEndpoints({
      invalidatesTags: ["User", "Agent"],
      }),
 
+     // 👇 ADD THIS MUTATION
+     deleteUser: builder.mutation<IApiResponse<null>, string>({
+     query: (id) => ({
+          url: `/users/${id}`,
+          method: "DELETE",
+     }),
+     invalidatesTags: ["User", "Agent"], // Refresh both lists
+     }),
+
 }),
 });
 
@@ -144,6 +153,7 @@ export const adminApi = baseApi.injectEndpoints({
 export const { 
      useGetAllUsersQuery, 
      useGetAllAgentsQuery,
-     useUpdateUserStatusMutation
+     useUpdateUserStatusMutation,
+     useDeleteUserMutation
 } = adminApi;
 

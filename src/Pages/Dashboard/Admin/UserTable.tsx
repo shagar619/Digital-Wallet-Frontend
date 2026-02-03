@@ -4,7 +4,7 @@ import {
      Table, TableBody, TableCell, TableHead, TableHeader, TableRow 
 } from "@/components/ui/table";
 import { 
-     DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigger 
+     DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuSeparator, DropdownMenuTrigger 
 } from "@/components/ui/dropdown-menu";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
@@ -12,11 +12,14 @@ import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { Input } from "@/components/ui/input";
 import { 
      MoreHorizontal, Shield, ShieldAlert, CheckCircle2, 
-     XCircle, Loader2, Search, ChevronLeft, ChevronRight 
+     XCircle, Loader2, Search, ChevronLeft, ChevronRight, 
+     Trash2,
+     AlertTriangle
 } from "lucide-react";
 import type { IUser } from "@/types/user.type";
 import { toast } from "sonner";
-import { useUpdateUserStatusMutation } from "@/redux/api/adminApi";
+import { useDeleteUserMutation, useUpdateUserStatusMutation } from "@/redux/api/adminApi";
+import { AlertDialog, AlertDialogAction, AlertDialogCancel, AlertDialogContent, AlertDialogDescription, AlertDialogFooter, AlertDialogHeader, AlertDialogTitle } from "@/components/ui/alert-dialog";
 
 
 
@@ -43,7 +46,13 @@ export const UserTable = ({
 }: UserTableProps) => {
 
      const [updateUser] = useUpdateUserStatusMutation();
+     // 👇 1. Init Delete Mutation
+     const [deleteUser, { isLoading: isDeleting }] = useDeleteUserMutation();
      const [searchTerm, setSearchTerm] = useState("");
+
+     // --- DELETE STATE ---
+     const [deleteDialogOpen, setDeleteDialogOpen] = useState(false);
+     const [userToDelete, setUserToDelete] = useState<string | null>(null);
 
      // Debounce search input locally
      useEffect(() => {
@@ -54,6 +63,31 @@ export const UserTable = ({
      return () => clearTimeout(delayDebounceFn);
      }, [searchTerm, onSearch]);
 
+
+     // 👇 Delete Handler
+
+     // 1. Open Dialog
+     const confirmDelete = (userId: string) => {
+     setUserToDelete(userId);
+     setDeleteDialogOpen(true);
+     };
+
+     // 2. Perform Delete
+     const handleDelete = async () => {
+     if (!userToDelete) return;
+
+     try {
+          await deleteUser(userToDelete).unwrap();
+          toast.success("User deleted successfully");
+          setDeleteDialogOpen(false);
+          setUserToDelete(null);
+     } catch (err: any) {
+          toast.error(err?.data?.message || "Failed to delete user");
+     }
+     };
+
+
+
      const handleStatusChange = async (userId: string, currentStatus: string) => {
      const newStatus = currentStatus === "ACTIVE" ? "BLOCKED" : "ACTIVE";
      try {
@@ -63,6 +97,8 @@ export const UserTable = ({
           toast.error(err?.data?.message || "Failed to update status");
      }
      };
+
+
 
      const handleVerificationChange = async (userId: string, currentStatus: boolean) => {
      try {
@@ -153,11 +189,23 @@ export const UserTable = ({
                     <DropdownMenuContent align="end">
                     <DropdownMenuItem onClick={() => handleStatusChange(user._id, user.IsActive || "INACTIVE")}>
                          {user.IsActive === "ACTIVE" ? <ShieldAlert className="mr-2 h-4 w-4 text-red-500" /> : <Shield className="mr-2 h-4 w-4 text-green-500" />}
-                         {user.IsActive === "ACTIVE" ? "BLOCK" : "INACTIVE"}
+                         {user.IsActive === "ACTIVE" ? "BLOCK" : "ACTIVE"}
                     </DropdownMenuItem>
                     <DropdownMenuItem onClick={() => handleVerificationChange(user._id, user.IsVerified || false)}>
                     <CheckCircle2 className="mr-2 h-4 w-4" /> Toggle Verify
                     </DropdownMenuItem>
+
+                    <DropdownMenuSeparator />
+
+                    {/* 👇 Trigger the Dialog State */}
+                    <DropdownMenuItem 
+                         onClick={() => confirmDelete(user._id)}
+                         className="text-red-600 focus:text-red-600 focus:bg-red-50 dark:focus:bg-red-950/50 cursor-pointer"
+                    >
+                    <Trash2 className="mr-2 h-4 w-4" /> 
+                         Delete User
+                    </DropdownMenuItem>
+
                     </DropdownMenuContent>
                     </DropdownMenu>
                </TableCell>
@@ -201,6 +249,42 @@ export const UserTable = ({
           </div>
      </div>
      )}
+
+
+     {/* --- 🛑 DELETE CONFIRMATION DIALOG --- */}
+     <AlertDialog open={deleteDialogOpen} onOpenChange={setDeleteDialogOpen}>
+     <AlertDialogContent>
+     <AlertDialogHeader>
+     <AlertDialogTitle className="flex items-center gap-2 text-red-600">
+     <AlertTriangle className="h-5 w-5" /> Delete User Account
+     </AlertDialogTitle>
+     <AlertDialogDescription>
+          Are you absolutely sure? This action cannot be undone. This will permanently delete the user account and remove their data from our servers.
+     </AlertDialogDescription>
+     </AlertDialogHeader>
+     <AlertDialogFooter>
+     <AlertDialogCancel disabled={isDeleting}>Cancel</AlertDialogCancel>
+     <AlertDialogAction 
+          onClick={(e) => {
+          e.preventDefault(); // Prevent closing immediately to show loading state if needed
+          handleDelete();
+          }}
+          className="bg-red-600 hover:bg-red-700 text-white"
+          disabled={isDeleting}
+     >
+          {isDeleting ? (
+          <>
+          <Loader2 className="mr-2 h-4 w-4 animate-spin" /> Deleting...
+          </>
+     ) : (
+          "Delete Account"
+     )}
+     </AlertDialogAction>
+     </AlertDialogFooter>
+     </AlertDialogContent>
+     </AlertDialog>
+
+
      </div>
 );
 };
