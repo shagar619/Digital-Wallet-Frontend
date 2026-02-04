@@ -14,6 +14,15 @@ const userApi = baseApi.injectEndpoints({
      providesTags: ["User"],
      }),
 
+     updateMyProfile: builder.mutation<IApiResponse<IUser>, Partial<IUser>>({
+     query: (data) => ({
+          url: `/user/${data._id}`, // Assuming your backend takes ID in param, or remove ID if it uses token
+          method: "PATCH",
+          data: data,
+     }),
+     invalidatesTags: ["User"], // 👈 Critical: Forces Navbar & Profile to refresh data
+     }),
+
      // UpdateMyProfile: builder.mutation<ProfileResponse, Record<string, string>>({
      // query: (payload) => ({
      //      url: "/user/update-profile",
@@ -93,7 +102,7 @@ const userApi = baseApi.injectEndpoints({
 
 export const {
      useGetMyProfileQuery,
-     // useUpdateMyProfileMutation,
+     useUpdateMyProfileMutation
      // useGetYourTransQuery,
      // useGetYourWalletQuery,
      // useCreateWithdrawMutation,

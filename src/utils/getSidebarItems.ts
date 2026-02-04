@@ -17,13 +17,3 @@ export const getSidebarItems = (userRole: TRole) => {
       return [];
   }
 };
-
-
-
-
-
-
-
-
-// import { agentSidebarItems } from "@/routes/agentSidebarItems";
-// import { userSidebarItems } from "@/routes/userSidebarItems";

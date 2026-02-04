@@ -5,8 +5,9 @@ import { RouterProvider } from "react-router-dom";
 import { router } from "./routes";
 import { Provider as ReduxProvider } from "react-redux";
 import { ToastContainer } from "react-toastify";
-import { ThemeProvider } from "./Pages/providers/theme.provider";
 import { store } from "./redux/store";
+import { Toaster } from "sonner";
+import { ThemeProvider } from "./providers/theme.provider";
 
 createRoot(document.getElementById("root")!).render(
   <StrictMode>
@@ -26,6 +27,7 @@ createRoot(document.getElementById("root")!).render(
             style={{ whiteSpace: "pre-line" }} // 👈 apply globally
           />
           <RouterProvider router={router} />
+          <Toaster richColors />
         </ThemeProvider>
     </ReduxProvider>
   </StrictMode>

@@ -59,7 +59,7 @@
 const AllCommission = () => {
   return (
     <div>
-      <h1>This is All Commission Page</h1>
+      <h1>This is All Commission Page here</h1>
     </div>
   );
 };

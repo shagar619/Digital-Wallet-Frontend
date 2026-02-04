@@ -140,7 +140,7 @@
 const AllCommissionUi = () => {
   return (
     <div>
-      This is All Commission UI Component
+      This is All Commission UI Component here
     </div>
   );
 };
