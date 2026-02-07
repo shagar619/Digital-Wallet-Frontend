@@ -84,7 +84,7 @@ const Overview = lazy(() => import("@/Pages/Dashboard/Agent/AgentOverview"));
 const MyProfile = lazy(() => import("@/Pages/Dashboard/User/MyProfile"));
 const AllCommission = lazy(() => import("@/Pages/Dashboard/Commission/AllCommission"));
 const AllWallet = lazy(() => import("@/Pages/Dashboard/Wallet/AllWallet"));
-const WithdrawAdd = lazy(() => import("@/Pages/Dashboard/PaymentCashout/WithdrawAdd"));
+const CashIn = lazy(() => import("@/Pages/Dashboard/Agent/CashIn"));
 
 export const agentSidebarItems: ISidebarItem[] = [
 {
@@ -125,9 +125,9 @@ export const agentSidebarItems: ISidebarItem[] = [
           icon: Wallet,
      },
      {
-          title: "Add Money",
+          title: "Cash In",
           url: "/agent/dashboard/wallet/add",
-          component: WithdrawAdd,
+          component: CashIn,
           icon: PlusCircle,
      },
 ],
