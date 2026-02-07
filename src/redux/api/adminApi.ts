@@ -91,7 +91,7 @@
 
 
 
-
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import type { IApiResponse, IUser } from "@/types/user.type";
 import { baseApi } from "../baseApi";
 
@@ -103,6 +103,13 @@ interface IQueryParam {
      searchTerm?: string;
      page?: number;
      limit?: number;
+}
+
+export interface ISystemStats {
+     totalUsers: number;
+     totalAgents: number;
+     totalMoney: number;
+     recentTransactions: any[];
 }
 
 export const adminApi = baseApi.injectEndpoints({
@@ -144,6 +151,34 @@ export const adminApi = baseApi.injectEndpoints({
           method: "DELETE",
      }),
      invalidatesTags: ["User", "Agent"], // Refresh both lists
+     }),
+
+     // Analytics
+     getSystemStats: builder.query<IApiResponse<ISystemStats>, void>({
+     query: () => ({
+          url: "/transactions/analytics",
+          method: "GET",
+     }),
+     providesTags: ["Stats"],
+     }),
+
+     // Wallet Management
+     getAllWallets: builder.query<IApiResponse<any[]>, { page?: number; limit?: number; searchTerm?: string }>({
+     query: (params) => ({
+          url: "/wallets/all-wallets",
+          method: "GET",
+          params,
+     }),
+     providesTags: ["Wallet"],
+     }),
+
+     updateWalletStatus: builder.mutation<IApiResponse<any>, { id: string; status: "ACTIVE" | "BLOCKED" }>({
+     query: ({ id, status }) => ({
+          url: `/wallets/${id}`,
+          method: "PATCH",
+          data: { status },
+     }),
+     invalidatesTags: ["Wallet"],
      }),
 
 }),
