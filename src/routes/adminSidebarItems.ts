@@ -9,7 +9,7 @@ import AllUsers from "@/Pages/Dashboard/Admin/AllUsers";
 import AllAgents from "@/Pages/Dashboard/Admin/AllAgents";
 
 // Lazy load components
-const Overview = lazy(() => import("@/Pages/Dashboard/Overview/Overview"));
+const Overview = lazy(() => import("@/Pages/Dashboard/Admin/AdminOverview"));
 // ... import others
 
 export const adminSidebarItems: ISidebarItem[] = [

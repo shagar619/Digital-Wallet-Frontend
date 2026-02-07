@@ -189,6 +189,9 @@ export const {
      useGetAllUsersQuery, 
      useGetAllAgentsQuery,
      useUpdateUserStatusMutation,
-     useDeleteUserMutation
+     useDeleteUserMutation,
+     useGetSystemStatsQuery,
+     useGetAllWalletsQuery, 
+     useUpdateWalletStatusMutation,
 } = adminApi;
 
