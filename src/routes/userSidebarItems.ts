@@ -2,14 +2,13 @@ import { lazy } from "react";
 import type { ISidebarItem } from "@/types/sidebar.type";
 import { 
      LayoutDashboard, User, History, 
-     Wallet, ArrowDownLeft, Send 
+     ArrowDownLeft, Send 
 } from "lucide-react";
 
 // Lazy load components
 const Overview = lazy(() => import("@/Pages/Dashboard/Users/Overview"));
 const MyProfile = lazy(() => import("@/Pages/Dashboard/User/MyProfile"));
 const AllTrans = lazy(() => import("@/Pages/Dashboard/Users/AllTrans"));
-const AllWallet = lazy(() => import("@/Pages/Dashboard/Wallet/AllWallet"));
 const WithdrawAdd = lazy(() => import("@/Pages/Dashboard/Users/WithdrawAdd"));
 const TransferMoney = lazy(() => import("@/Pages/Dashboard/Users/TransferMoney"));
 
@@ -45,12 +44,6 @@ export const userSidebarItems: ISidebarItem[] = [
 {
      title: "Payments",
      items: [
-     {
-          title: "My Wallet",
-          url: "/user/dashboard/my-wallet",
-          component: AllWallet,
-          icon: Wallet,
-     },
      {
           title: "Withdraw",
           url: "/user/dashboard/wallet/withdraw",

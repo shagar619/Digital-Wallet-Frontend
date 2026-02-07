@@ -80,7 +80,7 @@ import {
 } from "lucide-react";
 
 // Lazy load components
-const Overview = lazy(() => import("@/Pages/Dashboard/Overview/Overview"));
+const Overview = lazy(() => import("@/Pages/Dashboard/Agent/AgentOverview"));
 const MyProfile = lazy(() => import("@/Pages/Dashboard/User/MyProfile"));
 const AllCommission = lazy(() => import("@/Pages/Dashboard/Commission/AllCommission"));
 const AllWallet = lazy(() => import("@/Pages/Dashboard/Wallet/AllWallet"));

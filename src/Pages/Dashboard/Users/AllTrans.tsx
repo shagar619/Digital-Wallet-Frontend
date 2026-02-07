@@ -39,7 +39,7 @@ const AllTrans = () => {
                onClick={() => setFilterType(f.value)}
                className={`px-4 py-1.5 rounded-md text-sm font-medium transition-colors ${
                filterType === f.value 
-               ? "bg-slate-800 text-white shadow-sm" 
+               ? "bg-slate-800 text-white shadow-sm"
                : "text-slate-400 hover:text-white"
           }`}
           >
