@@ -11,7 +11,7 @@ const MyProfile = lazy(() => import("@/Pages/Dashboard/User/MyProfile"));
 const AllTrans = lazy(() => import("@/Pages/Dashboard/Transaction/AllTrans"));
 const AllWallet = lazy(() => import("@/Pages/Dashboard/Wallet/AllWallet"));
 const WithdrawAdd = lazy(() => import("@/Pages/Dashboard/PaymentCashout/WithdrawAdd"));
-const TransferMoney = lazy(() => import("@/Pages/Dashboard/PaymentCashout/TransferMoney"));
+const TransferMoney = lazy(() => import("@/Pages/Dashboard/Users/TransferMoney"));
 
 export const userSidebarItems: ISidebarItem[] = [
 {
