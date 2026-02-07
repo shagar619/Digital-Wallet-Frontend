@@ -8,7 +8,7 @@ import {
 // Lazy load components
 const Overview = lazy(() => import("@/Pages/Dashboard/Users/Overview"));
 const MyProfile = lazy(() => import("@/Pages/Dashboard/User/MyProfile"));
-const AllTrans = lazy(() => import("@/Pages/Dashboard/Transaction/AllTrans"));
+const AllTrans = lazy(() => import("@/Pages/Dashboard/Users/AllTrans"));
 const AllWallet = lazy(() => import("@/Pages/Dashboard/Wallet/AllWallet"));
 const WithdrawAdd = lazy(() => import("@/Pages/Dashboard/Users/WithdrawAdd"));
 const TransferMoney = lazy(() => import("@/Pages/Dashboard/Users/TransferMoney"));
