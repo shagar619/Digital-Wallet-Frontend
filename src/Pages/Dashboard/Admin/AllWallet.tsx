@@ -1,7 +1,7 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { Input } from "@/components/ui/input";
 import { useGetAllWalletsQuery, useUpdateWalletStatusMutation } from "@/redux/api/adminApi";
-import { CreditCard, Loader2, Lock, MoreHorizontal, Search, Unlock } from "lucide-react";
+import { Loader2, Lock, MoreHorizontal, Search, Unlock } from "lucide-react";
 import { useState } from "react";
 import { toast } from "sonner";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
@@ -13,7 +13,7 @@ import {
 } from "@/components/ui/dropdown-menu";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
-
+import logo from "./../../../assets/digi-wallet.png";
 
 
 
@@ -42,7 +42,8 @@ const AllWallet = () => {
      <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4">
      <div>
           <h2 className="text-2xl font-bold text-white flex items-center gap-2">
-          <CreditCard className="text-emerald-500" /> Wallet Management
+               <img src={logo} alt="" className="w-10 h-10 rounded-full" />
+               Wallet Management
           </h2>
           <p className="text-slate-400 text-sm">Monitor user balances and freeze suspicious accounts.</p>
      </div>
@@ -57,7 +58,7 @@ const AllWallet = () => {
      </div>
      </div>
 
-     <div className="rounded-xl bg-slate-900/50 overflow-hidden">
+     <div className="rounded-t-xs bg-slate-900/50 overflow-hidden">
      {isLoading ? (
      <div className="h-64 flex items-center justify-center">
           <Loader2 className="animate-spin text-emerald-500" />
@@ -65,7 +66,7 @@ const AllWallet = () => {
           ) : (
           <Table>
           <TableHeader className="bg-slate-950">
-          <TableRow className="hover:bg-slate-950 border-slate-800">
+          <TableRow className="hover:bg-slate-950 border-slate-800 bg-muted/50">
                <TableHead className="text-slate-400">Account Holder</TableHead>
                <TableHead className="text-slate-400">Role</TableHead>
                <TableHead className="text-slate-400">Current Balance</TableHead>
@@ -120,7 +121,7 @@ const AllWallet = () => {
                          className="cursor-pointer focus:bg-slate-800 focus:text-white"
                     >
                          {wallet.status === "ACTIVE" ? (
-                         <><Lock size={14} className="mr-2 text-red-500" /> Freeze Account</>
+                         <><Lock size={14} className="mr-2 text-red-500" /> Block Account</>
                          ) : (
                          <><Unlock size={14} className="mr-2 text-emerald-500" /> Activate Account</>
                          )}

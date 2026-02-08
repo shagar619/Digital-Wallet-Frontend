@@ -27,7 +27,7 @@ const AllTrans = () => {
 
 
      return (
-     <div className="space-y-6 p-2">
+     <div className="space-y-6 p-2 pb-16">
      <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4">
           <h2 className="text-2xl font-bold text-white">Transaction History</h2>
 
@@ -43,21 +43,21 @@ const AllTrans = () => {
                : "text-slate-400 hover:text-white"
           }`}
           >
-               {f.label}
+               {f.label} 
           </button>
           ))}
      </div>
      </div>
 
-     <div className="rounded-xl bg-slate-900/50 overflow-hidden">
+     <div className=" bg-slate-900/50 overflow-hidden">
      {isLoading ? (
      <div className="h-64 flex items-center justify-center">
           <Loader2 className="animate-spin text-emerald-500" />
      </div>
      ) : (
      <Table>
-          <TableHeader className="bg-slate-950">
-          <TableRow className="hover:bg-slate-950 border-slate-800">
+          <TableHeader className="bg-muted/50">
+          <TableRow className="border-slate-800">
                <TableHead className="text-slate-400">Transaction ID</TableHead>
                <TableHead className="text-slate-400">Type</TableHead>
                <TableHead className="text-slate-400">Party</TableHead>

@@ -21,7 +21,7 @@ const AllCommission = () => {
 
 
      return (
-     <div className="space-y-6 p-2">
+     <div className="space-y-6 p-2 pb-16">
      <div className="flex flex-col gap-2">
           <h2 className="text-2xl font-bold text-white flex items-center gap-2">
           <DollarSign className="text-emerald-500" /> Commission History
@@ -31,7 +31,7 @@ const AllCommission = () => {
           </p>
      </div>
 
-     <div className="rounded-xl border border-slate-800 bg-slate-900/50 overflow-hidden">
+     <div className="rounded-xl bg-slate-900/50 overflow-hidden">
      {isLoading ? (
      <div className="h-64 flex items-center justify-center">
           <Loader2 className="animate-spin text-blue-500" />

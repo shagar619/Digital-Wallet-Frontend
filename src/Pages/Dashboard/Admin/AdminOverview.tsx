@@ -1,7 +1,8 @@
 import { Badge } from "@/components/ui/badge";
 import { Skeleton } from "@/components/ui/skeleton";
 import { useGetSystemStatsQuery } from "@/redux/api/adminApi";
-import { Activity, ShieldCheck, UserCheck, Users, Wallet } from "lucide-react";
+import { Activity, ShieldCheck, UserCheck, Users } from "lucide-react";
+import logo from "./../../../assets/digi-wallet.png";
 
 
 
@@ -17,7 +18,7 @@ const AdminOverview = () => {
 
 
      return (
-     <div className="space-y-8 p-2 pb-10">
+     <div className="space-y-8 p-2 pb-16">
 
      {/* 1. HEADER */}
      <div>
@@ -25,7 +26,7 @@ const AdminOverview = () => {
           <ShieldCheck className="text-emerald-500" size={32} /> System Administrator
           </h1>
           <p className="text-slate-400">
-          Real-time monitoring of <span className="text-emerald-400 font-semibold">Gigi Wallet</span> infrastructure.
+          Real-time monitoring of <span className="text-emerald-400 font-bold">Gigi Wallet</span> infrastructure.
           </p>
      </div>
 
@@ -33,12 +34,13 @@ const AdminOverview = () => {
      <div className="grid md:grid-cols-3 gap-6">
 
      {/* Total Liquidity */}
-     <div className="md:col-span-3 lg:col-span-1 bg-gradient-to-br from-slate-900 to-slate-950 border border-slate-800 rounded-3xl p-8 relative overflow-hidden group">
+     <div className="md:col-span-3 lg:col-span-1 bg-gradient-to-br from-slate-900 to-slate-950 border border-slate-800 rounded-xl p-8 relative overflow-hidden group">
      <div className="absolute top-0 right-0 p-24 bg-emerald-500/10 rounded-full blur-3xl -mr-10 -mt-10" />
      <div className="relative z-10">
           <div className="flex items-center gap-3 mb-4">
-          <div className="p-3 bg-emerald-500/10 rounded-xl text-emerald-500">
-               <Wallet size={24} />
+          <div >
+               {/* <Wallet size={24} /> */}
+               <img src={logo} alt="" className="w-12 h-12 rounded-full" />
           </div>
                <span className="text-slate-400 font-medium uppercase text-xs tracking-wider">Total System Liquidity</span>
           </div>
@@ -56,7 +58,7 @@ const AdminOverview = () => {
      </div>
 
      {/* User Stats */}
-     <div className="bg-slate-900/50 border border-slate-800 rounded-3xl p-6 flex flex-col justify-between hover:border-blue-500/30 transition-colors">
+     <div className="bg-slate-900/50 border border-slate-800 rounded-xl p-6 flex flex-col justify-between hover:border-blue-500/30 transition-colors">
           <div className="flex justify-between items-start">
           <div>
                <p className="text-slate-400 text-xs uppercase tracking-wider font-bold">Total Users</p>
@@ -72,7 +74,7 @@ const AdminOverview = () => {
      </div>
 
      {/* Agent Stats */}
-     <div className="bg-slate-900/50 border border-slate-800 rounded-3xl p-6 flex flex-col justify-between hover:border-purple-500/30 transition-colors">
+     <div className="bg-slate-900/50 border border-slate-800 rounded-xl p-6 flex flex-col justify-between hover:border-purple-500/30 transition-colors">
      <div className="flex justify-between items-start">
      <div>
           <p className="text-slate-400 text-xs uppercase tracking-wider font-bold">Verified Agents</p>
@@ -122,7 +124,7 @@ const AdminOverview = () => {
                <span className="block text-xs text-slate-500 font-normal">{t.senderId?.email}</span>
                </td>
                <td className="px-6 py-4 text-white font-bold">
-               {t.amount.toLocaleString()} BDT
+               $ {t.amount.toLocaleString()}
                </td>
                <td className="px-6 py-4">
                <Badge variant="outline" className="border-green-900 bg-green-900/20 text-green-400 text-[10px]">

@@ -2,8 +2,9 @@ import { Skeleton } from "@/components/ui/skeleton";
 import { useGetMyTransactionsQuery } from "@/redux/api/transactionApi";
 import { useGetMyProfileQuery } from "@/redux/api/userApi";
 import { useGetMyBalanceQuery } from "@/redux/api/walletApi";
-import { ArrowDownLeft, ArrowUpRight, Clock, CreditCard, Send, ShieldCheck, TrendingUp, Wallet } from "lucide-react";
+import { ArrowDownLeft, ArrowUpRight, Clock, CreditCard, Send, ShieldCheck, TrendingUp } from "lucide-react";
 import { Link } from "react-router-dom";
+import logo from "./../../../assets/digi-wallet.png";
 
 
 
@@ -24,7 +25,7 @@ const Overview = () => {
      .reduce((acc, curr) => acc + curr.amount, 0);
 
      return (
-     <div className="space-y-8 p-2 pb-10">
+     <div className="space-y-8 p-2 pb-16">
 
      {/* 1. WELCOME SECTION */}
      <div className="flex flex-col md:flex-row justify-between items-start md:items-center gap-4">
@@ -48,9 +49,9 @@ const Overview = () => {
      <div className="grid md:grid-cols-3 gap-6">
 
      {/* Main Balance Card (Glassmorphic Gradient) */}
-     <div className="md:col-span-2 relative overflow-hidden rounded-3xl bg-gradient-to-br from-emerald-600 to-teal-800 p-8 shadow-2xl shadow-emerald-900/20 text-white group">
+     <div className="md:col-span-2 relative overflow-hidden rounded-xl bg-gradient-to-br from-emerald-600 to-teal-800 p-8 shadow-2xl shadow-emerald-900/20 text-white group">
      <div className="absolute top-0 right-0 p-32 bg-white/5 rounded-full blur-3xl -mr-16 -mt-16 pointer-events-none transition-transform group-hover:scale-110" />
-          
+
      <div className="relative z-10 flex flex-col justify-between h-full min-h-[180px]">
      <div className="flex justify-between items-start">
      <div>
@@ -63,8 +64,9 @@ const Overview = () => {
                </h2>
                )}
      </div>
-     <div className="p-3 bg-white/10 rounded-2xl backdrop-blur-sm border border-white/10">
-               <Wallet className="w-6 h-6 text-white" />
+     <div className=" ">
+               {/* <Wallet className="w-6 h-6 text-white" /> */}
+               <img src={logo} alt="" className="w-12 h-12 rounded-full" />
      </div>
      </div>
 
@@ -81,8 +83,8 @@ const Overview = () => {
 
      {/* Quick Stats Grid */}
      <div className="grid grid-rows-2 gap-6">
-     <div className="bg-slate-900/50 border border-slate-800 rounded-3xl p-6 flex items-center gap-4 hover:border-emerald-500/30 transition-colors">
-     <div className="w-12 h-12 rounded-2xl bg-blue-500/10 flex items-center justify-center text-blue-400">
+     <div className="bg-slate-900/50 border border-slate-800 rounded-xl p-6 flex items-center gap-4 hover:border-emerald-500/30 transition-colors">
+     <div className="w-12 h-12 rounded-xl bg-blue-500/10 flex items-center justify-center text-blue-400">
           <TrendingUp size={24} />
      </div>
      <div>
@@ -91,8 +93,8 @@ const Overview = () => {
      </div>
      </div>
 
-     <div className="bg-slate-900/50 border border-slate-800 rounded-3xl p-6 flex items-center gap-4 hover:border-purple-500/30 transition-colors">
-     <div className="w-12 h-12 rounded-2xl bg-purple-500/10 flex items-center justify-center text-purple-400">
+     <div className="bg-slate-900/50 border border-slate-800 rounded-xl p-6 flex items-center gap-4 hover:border-purple-500/30 transition-colors">
+     <div className="w-12 h-12 rounded-xl bg-purple-500/10 flex items-center justify-center text-purple-400">
           <ShieldCheck size={24} />
      </div>
      <div>
@@ -104,7 +106,7 @@ const Overview = () => {
      </div>
 
      {/* 3. RECENT TRANSACTIONS TABLE */}
-     <div className="bg-slate-900/50 border border-slate-800 rounded-3xl overflow-hidden">
+     <div className="bg-slate-900/50 rounded-xl overflow-hidden">
      <div className="p-6 border-b border-slate-800 flex justify-between items-center">
           <h3 className="text-lg font-bold text-white flex items-center gap-2">
           <Clock size={18} className="text-slate-400" /> Recent Activity

@@ -11,6 +11,7 @@ import { Link } from "react-router-dom";
 const AgentOverview = () => {
 
      const { data: walletData, isLoading: walletLoading } = useGetMyBalanceQuery(undefined);
+     // eslint-disable-next-line @typescript-eslint/no-unused-vars
      const { data: transData, isLoading: transLoading } = useGetMyTransactionsQuery({ limit: 10 });
      const { data: userData } = useGetMyProfileQuery(undefined);
 
@@ -27,7 +28,7 @@ const AgentOverview = () => {
 
 
      return (
-     <div className="space-y-8 p-2 pb-10">
+     <div className="space-y-8 p-2 pb-16">
 
      {/* 1. WELCOME HEADER */}
      <div className="flex flex-col md:flex-row justify-between items-start md:items-center gap-4">
@@ -47,7 +48,7 @@ const AgentOverview = () => {
      <div className="grid md:grid-cols-4 gap-6">
 
      {/* Main Operating Balance */}
-     <div className="md:col-span-2 bg-gradient-to-r from-blue-600 to-indigo-800 rounded-3xl p-8 text-white shadow-2xl relative overflow-hidden group">
+     <div className="md:col-span-2 bg-gradient-to-r from-blue-600 to-indigo-800 rounded-xl p-8 text-white shadow-2xl relative overflow-hidden group">
      <div className="absolute right-0 bottom-0 p-24 bg-white/5 rounded-full blur-3xl translate-y-10 translate-x-10" />
           
      <div className="relative z-10">
@@ -69,7 +70,7 @@ const AgentOverview = () => {
      </div>
 
      {/* Total Earnings */}
-     <div className="bg-slate-900/50 border border-slate-800 rounded-3xl p-6 flex flex-col justify-between hover:border-emerald-500/30 transition-colors">
+     <div className="bg-slate-900/50 border border-slate-800 rounded-xl p-6 flex flex-col justify-between hover:border-emerald-500/30 transition-colors">
      <div className="w-12 h-12 rounded-2xl bg-emerald-500/10 flex items-center justify-center text-emerald-400 mb-4">
           <TrendingUp size={24} />
      </div>
@@ -81,7 +82,7 @@ const AgentOverview = () => {
      </div>
 
      {/* Transaction Volume */}
-     <div className="bg-slate-900/50 border border-slate-800 rounded-3xl p-6 flex flex-col justify-between hover:border-blue-500/30 transition-colors">
+     <div className="bg-slate-900/50 border border-slate-800 rounded-xl p-6 flex flex-col justify-between hover:border-blue-500/30 transition-colors">
      <div className="w-12 h-12 rounded-2xl bg-blue-500/10 flex items-center justify-center text-blue-400 mb-4">
           <Users size={24} />
      </div>

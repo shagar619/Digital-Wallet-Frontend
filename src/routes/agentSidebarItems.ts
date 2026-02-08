@@ -1,7 +1,8 @@
 import { lazy } from "react";
 import type { ISidebarItem } from "@/types/sidebar.type";
 import { 
-     LayoutDashboard, User, DollarSign, PlusCircle 
+     LayoutDashboard, User, DollarSign, PlusCircle, 
+     History
 } from "lucide-react";
 
 // Lazy load components
@@ -9,6 +10,7 @@ const Overview = lazy(() => import("@/Pages/Dashboard/Agent/AgentOverview"));
 const MyProfile = lazy(() => import("@/Pages/Dashboard/User/MyProfile"));
 const AllCommission = lazy(() => import("@/Pages/Dashboard/Agent/AllCommission"));
 const CashIn = lazy(() => import("@/Pages/Dashboard/Agent/CashIn"));
+const AllTrans = lazy(() => import("@/Pages/Dashboard/Users/AllTrans"));
 
 export const agentSidebarItems: ISidebarItem[] = [
 {
@@ -39,6 +41,19 @@ export const agentSidebarItems: ISidebarItem[] = [
      },
 ],
 },
+
+{
+     title: "Activity",
+     items: [
+     {
+          title: "Transactions",
+          url: "/agent/dashboard/my-wallet",
+          component: AllTrans,
+          icon: History,
+     },
+],
+},
+
 {
      title: "Finance",
      items: [

@@ -37,11 +37,11 @@ const TransferMoney = () => {
 
 
      return (
-     <div className="max-w-xl mx-auto py-10">
+     <div className="max-w-xl mx-auto py-16">
      <motion.div 
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
-          className="bg-slate-900/50 backdrop-blur-xl border border-slate-800 rounded-3xl p-8 shadow-2xl relative overflow-hidden"
+          className="bg-slate-900/50 backdrop-blur-xl border border-slate-800 rounded-xl p-8 shadow-2xl relative overflow-hidden"
      >
      {/* Decorative Glow */}
      <div className="absolute top-0 right-0 w-64 h-64 bg-emerald-500/10 blur-[100px] rounded-full -mr-20 -mt-20 pointer-events-none" />

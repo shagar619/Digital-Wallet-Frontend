@@ -100,7 +100,7 @@ const MyProfileUi: React.FC<MyProfileUiProps> = ({
       </div>
 
       {/* 3. CONTENT AREA */}
-      <div className="mt-12 grid gap-8">
+      <div className="mt-12 grid gap-8"> 
         
         <AnimatePresence mode="wait">
           {isEditing ? (
@@ -111,7 +111,7 @@ const MyProfileUi: React.FC<MyProfileUiProps> = ({
               animate={{ opacity: 1, y: 0 }}
               exit={{ opacity: 0, y: -20 }}
               onSubmit={handleSubmit(onSubmit)}
-              className="bg-slate-900/50 backdrop-blur-md border border-slate-800 rounded-3xl p-8 shadow-xl"
+              className="bg-slate-900/50 backdrop-blur-md border border-slate-800 rounded-xl p-8 shadow-xl"
             >
               <div className="flex items-center justify-between mb-8">
                 <h3 className="text-xl font-bold text-white">Edit Information</h3>
@@ -185,7 +185,7 @@ const MyProfileUi: React.FC<MyProfileUiProps> = ({
               className="grid md:grid-cols-2 gap-6"
             >
               {/* Personal Info Card */}
-              <div className="bg-slate-900/50 backdrop-blur border border-slate-800 rounded-3xl p-8 hover:border-slate-700 transition-colors">
+              <div className="bg-slate-900/50 backdrop-blur border border-slate-800 rounded-xl p-8 hover:border-slate-700 transition-colors">
                 <h3 className="text-lg font-bold text-white mb-6 flex items-center gap-2">
                   <User size={20} className="text-emerald-500" /> Personal Details
                 </h3>
@@ -197,7 +197,7 @@ const MyProfileUi: React.FC<MyProfileUiProps> = ({
               </div>
 
               {/* Account Stats / Security Card (Placeholder for visual balance) */}
-              <div className="bg-slate-900/50 backdrop-blur border border-slate-800 rounded-3xl p-8 hover:border-slate-700 transition-colors flex flex-col justify-between">
+              <div className="bg-slate-900/50 backdrop-blur border border-slate-800 rounded-xl p-8 hover:border-slate-700 transition-colors flex flex-col justify-between">
                 <div>
                   <h3 className="text-lg font-bold text-white mb-6 flex items-center gap-2">
                     <ShieldCheck size={20} className="text-blue-500" /> Account Status
