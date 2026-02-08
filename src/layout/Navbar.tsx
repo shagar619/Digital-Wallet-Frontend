@@ -122,7 +122,7 @@ const Navbar = () => {
           {/* Theme Toggler */}
           <button 
             onClick={toggleTheme}
-            className="w-10 h-10 rounded-full bg-slate-900 border border-slate-800 text-slate-400 hover:text-white hover:border-slate-600 flex items-center justify-center transition-all"
+            className="hidden w-10 h-10 rounded-full bg-slate-900 border border-slate-800 text-slate-400 hover:text-white hover:border-slate-600 flex items-center justify-center transition-all"
             aria-label="Toggle Theme"
           >
             <motion.div
@@ -166,10 +166,10 @@ const Navbar = () => {
                       <p className="text-slate-400 text-xs truncate">{user.email}</p>
                     </div>
                     
-                    <Link to="/profile" className="flex items-center gap-3 px-3 py-2 text-slate-300 hover:bg-slate-800 rounded-lg text-sm transition-colors">
+                    <Link to={getDashboardPath(user.role)} className="flex items-center gap-3 px-3 py-2 text-slate-300 hover:bg-slate-800 rounded-lg text-sm transition-colors">
                       <User size={16} /> Profile
                     </Link>
-                    <Link to="/settings" className="flex items-center gap-3 px-3 py-2 text-slate-300 hover:bg-slate-800 rounded-lg text-sm transition-colors">
+                    <Link to={getDashboardPath(user.role)} className="flex items-center gap-3 px-3 py-2 text-slate-300 hover:bg-slate-800 rounded-lg text-sm transition-colors">
                       <Settings size={16} /> Settings
                     </Link>
                     {/* 👇 NEW DASHBOARD LINK {getDashboardPath(userData.role)} */}

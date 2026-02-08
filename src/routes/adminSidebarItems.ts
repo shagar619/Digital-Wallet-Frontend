@@ -2,15 +2,16 @@ import { lazy } from "react";
 import type { ISidebarItem } from "@/types/sidebar.type";
 import { 
   LayoutDashboard, User, Users, UserCheck, 
-  FileText, DollarSign, Wallet 
+  Wallet 
 } from "lucide-react";
-import MyProfile from "@/Pages/Dashboard/User/MyProfile";
-import AllUsers from "@/Pages/Dashboard/Admin/AllUsers";
-import AllAgents from "@/Pages/Dashboard/Admin/AllAgents";
 
 // Lazy load components
-const Overview = lazy(() => import("@/Pages/Dashboard/Overview/Overview"));
-// ... import others
+const Overview = lazy(() => import("@/Pages/Dashboard/Admin/AdminOverview"));
+const MyProfile = lazy(() => import("@/Pages/Dashboard/User/MyProfile"));
+const AllUsers = lazy(() => import("@/Pages/Dashboard/Admin/AllUsers"));
+const AllAgents = lazy(() => import("@/Pages/Dashboard/Admin/AllAgents"));
+const AllWallet = lazy(() => import("@/Pages/Dashboard/Admin/AllWallet"));
+
 
 export const adminSidebarItems: ISidebarItem[] = [
   {
@@ -51,21 +52,9 @@ export const adminSidebarItems: ISidebarItem[] = [
     title: "Finance",
     items: [
       {
-        title: "Transactions",
-        url: "/admin/dashboard/all-trans",
-        component: Overview, 
-        icon: FileText,
-      },
-      {
-        title: "Commission",
-        url: "/admin/dashboard/all-agent-com",
-        component: Overview,
-        icon: DollarSign,
-      },
-      {
         title: "Wallet List",
         url: "/admin/dashboard/all-wallet",
-        component: Overview,
+        component: AllWallet,
         icon: Wallet,
       },
     ],
