@@ -90,7 +90,6 @@ axiosInstance.interceptors.response.use(
 
                return axiosInstance(originalRequest);
           } catch(error) {
-               // console.log(error);
                processQueue(error);
                return Promise.reject(error);
           } finally {

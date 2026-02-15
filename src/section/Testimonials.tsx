@@ -91,7 +91,7 @@ const ReviewCard = ({ review }: { review: typeof reviews[0] }) => (
 );
 
 
-const InfiniteMarquee = ({ items, direction = "left", speed = 25 }: { items: typeof reviews, direction?: "left" | "right", speed?: number }) => {
+export const InfiniteMarquee = ({ items, direction = "left", speed = 25 }: { items: typeof reviews, direction?: "left" | "right", speed?: number }) => {
 
      return (
      <div className="relative flex overflow-hidden group">
