@@ -39,6 +39,8 @@ const categories = [
      const [activeTab, setActiveTab] = useState(categories[0].id);
      const activeData = categories.find(c => c.id === activeTab) || categories[0];
 
+     console.log(activeData)
+
      // Auto-rotate tabs every 6 seconds
      useEffect(() => {
      const timer = setInterval(() => {
@@ -103,7 +105,7 @@ const categories = [
                ? 'bg-slate-800 text-white' 
                : 'bg-slate-900 text-slate-500 group-hover:text-slate-300'
                }`}>
-               {React.cloneElement(cat.icon as React.ReactElement, { size: 24 })}
+               {React.cloneElement(cat.icon as React.ReactElement, {  })}
           </div>
           <div>
                <h3 className={`text-lg font-bold mb-1 ${activeTab === cat.id ? 'text-white' : 'text-slate-400'}`}>
@@ -112,7 +114,6 @@ const categories = [
                <p className={`text-sm ${activeTab === cat.id ? 'text-slate-400' : 'text-slate-600'}`}>
                {cat.stats}
                </p>
-                    
                <AnimatePresence>
                     {activeTab === cat.id && (
                <motion.div

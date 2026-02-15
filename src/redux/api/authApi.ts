@@ -42,6 +42,7 @@ export const authApi = baseApi.injectEndpoints({
           dispatch(baseApi.util.resetApiState()); // Clears all Redux cache
      } catch (err) {
           console.error("Logout failed", err);
+          console.log(arg)
      }
      },
      invalidatesTags: ["User"],

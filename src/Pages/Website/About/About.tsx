@@ -68,11 +68,15 @@ const TeamCard = ({ name, role, img, delay }: any) => (
 // --- MAIN PAGE COMPONENT ---
 
 const About = () => {
+
   const containerRef = useRef(null);
+
   const { scrollYProgress } = useScroll({
     target: containerRef,
     offset: ["start start", "end end"]
   });
+
+  console.log(scrollYProgress)
 
   return (
     <div className="bg-slate-950 min-h-screen font-sans overflow-x-hidden" ref={containerRef}>

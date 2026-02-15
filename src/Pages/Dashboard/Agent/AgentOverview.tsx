@@ -11,9 +11,9 @@ import { Link } from "react-router-dom";
 const AgentOverview = () => {
 
      const { data: walletData, isLoading: walletLoading } = useGetMyBalanceQuery(undefined);
-     // eslint-disable-next-line @typescript-eslint/no-unused-vars
      const { data: transData, isLoading: transLoading } = useGetMyTransactionsQuery({ limit: 10 });
      const { data: userData } = useGetMyProfileQuery(undefined);
+     console.log(transLoading)
 
      const wallet = walletData?.data;
      const transactions = transData?.data || [];
