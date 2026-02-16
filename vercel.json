@@ -3,7 +3,11 @@
 {
      "rewrites": [
      {
-          "source": "/(.*)",
+          "source": "/api/w1/:path*",
+          "destination": "https://digital-wallet-backend-liart-two.vercel.app/api/w1/:path*"
+     },
+     {
+          "source": "/:path*",
           "destination": "/index.html"
      }
 ]

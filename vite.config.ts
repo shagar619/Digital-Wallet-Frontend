@@ -11,4 +11,18 @@ export default defineConfig({
       "@": path.resolve(__dirname, "./src"),
     },
   },
+
+
+  server: {
+    proxy: {
+      // Whenever frontend requests /api/w1, Vite intercepts it 
+      // and securely forwards it to your live Vercel backend.
+      '/api/w1': {
+        target: 'https://digital-wallet-backend-liart-two.vercel.app',
+        changeOrigin: true,
+        secure: true,
+      }
+    }
+  }
+
 })
